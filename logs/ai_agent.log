@@ -1,0 +1,71 @@
+2025-09-03 19:48:07 | INFO     | app.core.logging:setup_logging:48 | Sistema de logging configurado
+2025-09-03 19:48:07 | INFO     | app.core.logging:setup_logging:48 | Sistema de logging configurado
+2025-09-03 19:48:07 | INFO     | __main__:main:23 | ============================================================
+2025-09-03 19:48:07 | INFO     | __main__:main:24 | 🤖 INFRAWATCH AI AGENT
+2025-09-03 19:48:07 | INFO     | __main__:main:25 | ============================================================
+2025-09-03 19:48:07 | INFO     | __main__:main:26 | 🔧 Host: 0.0.0.0
+2025-09-03 19:48:07 | INFO     | __main__:main:27 | 🌐 Port: 8001
+2025-09-03 19:48:07 | INFO     | __main__:main:28 | 🐛 Debug: False
+2025-09-03 19:48:07 | INFO     | __main__:main:29 | 🧠 Gemini Model: gemini-2.0-flash
+2025-09-03 19:48:07 | INFO     | __main__:main:30 | 📊 Vector DB: ./chroma_db
+2025-09-03 19:48:07 | INFO     | __main__:main:31 | 🔗 InfraWatch API: http://localhost:8000
+2025-09-03 19:48:07 | INFO     | __main__:main:32 | ============================================================
+2025-09-03 19:48:07 | INFO     | __main__:main:44 | 🚀 Iniciando servidor...
+2025-09-03 19:48:07 | INFO     | app.main:lifespan:28 | 🚀 Iniciando InfraWatch AI Agent...
+2025-09-03 19:48:07 | INFO     | app.main:lifespan:35 | ✅ AI Agent inicializado com sucesso
+2025-09-03 19:48:41 | INFO     | app.main:lifespan:40 | 🔄 Finalizando AI Agent...
+2025-09-03 19:49:17 | INFO     | app.core.logging:setup_logging:48 | Sistema de logging configurado
+2025-09-03 19:49:17 | INFO     | app.core.logging:setup_logging:48 | Sistema de logging configurado
+2025-09-03 19:49:17 | INFO     | __main__:main:23 | ============================================================
+2025-09-03 19:49:17 | INFO     | __main__:main:24 | 🤖 INFRAWATCH AI AGENT
+2025-09-03 19:49:17 | INFO     | __main__:main:25 | ============================================================
+2025-09-03 19:49:17 | INFO     | __main__:main:26 | 🔧 Host: 0.0.0.0
+2025-09-03 19:49:17 | INFO     | __main__:main:27 | 🌐 Port: 8001
+2025-09-03 19:49:17 | INFO     | __main__:main:28 | 🐛 Debug: False
+2025-09-03 19:49:17 | INFO     | __main__:main:29 | 🧠 Gemini Model: gemini-2.0-flash
+2025-09-03 19:49:17 | INFO     | __main__:main:30 | 📊 Vector DB: ./chroma_db
+2025-09-03 19:49:17 | INFO     | __main__:main:31 | 🔗 InfraWatch API: http://localhost:8000
+2025-09-03 19:49:17 | INFO     | __main__:main:32 | ============================================================
+2025-09-03 19:49:17 | INFO     | __main__:main:44 | 🚀 Iniciando servidor...
+2025-09-03 19:49:17 | INFO     | app.main:lifespan:28 | 🚀 Iniciando InfraWatch AI Agent...
+2025-09-03 19:49:17 | INFO     | app.main:lifespan:35 | ✅ AI Agent inicializado com sucesso
+2025-09-03 19:51:21 | INFO     | app.api.chat:chat_with_ai:33 | Recebida mensagem de chat: string...
+2025-09-03 19:51:21 | INFO     | app.services.rag.rag_service:process_query:33 | Processando query: string...
+2025-09-03 19:51:26 | ERROR    | app.services.infrawatch_client:_make_request:56 | Erro HTTP na requisição para http://localhost:8000/api/alerts: Client error '404 Not Found' for url 'http://localhost:8000/api/alerts?limit=100&status=active'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404
+2025-09-03 19:51:26 | ERROR    | app.services.infrawatch_client:get_alerts:121 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Client error '404 Not Found' for url 'http://localhost:8000/api/alerts?limit=100&status=active'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404
+2025-09-03 19:51:26 | ERROR    | app.services.infrawatch_client:_make_request:56 | Erro HTTP na requisição para http://localhost:8000/api/endpoints: Client error '404 Not Found' for url 'http://localhost:8000/api/endpoints'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404
+2025-09-03 19:51:26 | ERROR    | app.services.infrawatch_client:_make_request:56 | Erro HTTP na requisição para http://localhost:8000/api/metrics/recent: Client error '404 Not Found' for url 'http://localhost:8000/api/metrics/recent?since=2025-09-03T18%3A51%3A22.765153&endpoint_id='
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404
+2025-09-03 19:51:26 | ERROR    | app.services.infrawatch_client:get_recent_metrics:101 | Erro ao buscar métricas recentes: Erro na comunicação com InfraWatch API: Client error '404 Not Found' for url 'http://localhost:8000/api/metrics/recent?since=2025-09-03T18%3A51%3A22.765153&endpoint_id='
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404
+2025-09-03 19:51:26 | ERROR    | app.services.infrawatch_client:_make_request:56 | Erro HTTP na requisição para http://localhost:8000/api/system/health: Client error '404 Not Found' for url 'http://localhost:8000/api/system/health'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404
+2025-09-03 19:51:26 | ERROR    | app.services.infrawatch_client:get_system_health:137 | Erro ao buscar saúde do sistema: Erro na comunicação com InfraWatch API: Client error '404 Not Found' for url 'http://localhost:8000/api/system/health'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404
+2025-09-03 19:51:26 | ERROR    | app.services.infrawatch_client:_make_request:56 | Erro HTTP na requisição para http://localhost:8000/api/alerts: Client error '404 Not Found' for url 'http://localhost:8000/api/alerts?limit=10&status=active'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404
+2025-09-03 19:51:26 | ERROR    | app.services.infrawatch_client:get_alerts:121 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Client error '404 Not Found' for url 'http://localhost:8000/api/alerts?limit=10&status=active'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404
+2025-09-03 19:51:26 | INFO     | app.services.gemini.gemini_service:generate_response:148 | Gerando resposta para query: string...
+2025-09-03 19:51:34 | INFO     | app.services.gemini.gemini_service:generate_response:175 | Resposta gerada com sucesso
+2025-09-03 19:51:34 | INFO     | app.services.rag.rag_service:process_query:73 | Query processada com sucesso
+2025-09-03 19:51:34 | INFO     | app.api.chat:chat_with_ai:61 | Resposta do chat gerada com sucesso
+2025-09-03 19:53:49 | INFO     | app.main:lifespan:40 | 🔄 Finalizando AI Agent...
+2025-09-03 19:53:56 | INFO     | app.core.logging:setup_logging:48 | Sistema de logging configurado
+2025-09-03 19:53:56 | INFO     | app.core.logging:setup_logging:48 | Sistema de logging configurado
+2025-09-03 19:53:56 | INFO     | __main__:main:23 | ============================================================
+2025-09-03 19:53:56 | INFO     | __main__:main:24 | 🤖 INFRAWATCH AI AGENT
+2025-09-03 19:53:56 | INFO     | __main__:main:25 | ============================================================
+2025-09-03 19:53:56 | INFO     | __main__:main:26 | 🔧 Host: 0.0.0.0
+2025-09-03 19:53:56 | INFO     | __main__:main:27 | 🌐 Port: 8001
+2025-09-03 19:53:56 | INFO     | __main__:main:28 | 🐛 Debug: False
+2025-09-03 19:53:56 | INFO     | __main__:main:29 | 🧠 Gemini Model: gemini-2.0-flash
+2025-09-03 19:53:56 | INFO     | __main__:main:30 | 📊 Vector DB: ./chroma_db
+2025-09-03 19:53:56 | INFO     | __main__:main:31 | 🔗 InfraWatch API: http://localhost:8000
+2025-09-03 19:53:56 | INFO     | __main__:main:32 | ============================================================
+2025-09-03 19:53:56 | INFO     | __main__:main:44 | 🚀 Iniciando servidor...
+2025-09-03 19:53:56 | INFO     | app.main:lifespan:28 | 🚀 Iniciando InfraWatch AI Agent...
+2025-09-03 19:53:56 | INFO     | app.main:lifespan:35 | ✅ AI Agent inicializado com sucesso

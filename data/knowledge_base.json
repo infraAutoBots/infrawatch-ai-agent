@@ -1,148 +1,96 @@
-{
-  "systems": {
-    "snmp_monitoring": {
-      "description": "Sistema de monitoramento SNMP para coleta de métricas de dispositivos de rede",
-      "type": "monitoring",
-      "config": {
-        "default_port": 161,
-        "default_community": "public",
-        "timeout": 30,
-        "retries": 3
-      },
-      "important_metrics": [
-        "sysDescr",
-        "sysName", 
-        "sysUpTime",
-        "hrProcessorLoad",
-        "memTotalReal",
-        "memAvailReal",
-        "hrStorageSize",
-        "hrStorageUsed"
-      ],
-      "thresholds": {
-        "cpu_warning": 70,
-        "cpu_critical": 85,
-        "memory_warning": 80,
-        "memory_critical": 90,
-        "disk_warning": 75,
-        "disk_critical": 90
-      },
-      "troubleshooting": "Verificar conectividade SNMP, comunidade e versão. Confirmar que o agente SNMP está ativo no dispositivo alvo."
-    },
-    "alert_system": {
-      "description": "Sistema de alertas e notificações para problemas de infraestrutura",
-      "type": "alerting",
-      "config": {
-        "severity_levels": ["low", "medium", "high", "critical"],
-        "status_types": ["active", "acknowledged", "resolved"],
-        "categories": ["infrastructure", "security", "performance", "network"]
-      },
-      "important_metrics": [
-        "alert_count",
-        "resolution_time",
-        "escalation_rate"
-      ],
-      "thresholds": {
-        "critical_alert_response_time": "15min",
-        "high_alert_response_time": "1hour",
-        "medium_alert_response_time": "4hours"
-      },
-      "troubleshooting": "Verificar regras de alerta, configurações de notificação e logs do sistema de alertas."
+[
+  {
+    "content": "Sistema de monitoramento SNMP para coleta de métricas de dispositivos de rede. Configurações padrão: porta 161, comunidade public, timeout 30s, 3 tentativas. Métricas importantes: sysDescr, sysName, sysUpTime, hrProcessorLoad, memTotalReal, memAvailReal, hrStorageSize, hrStorageUsed. Thresholds: CPU warning 70%, critical 85%, Memory warning 80%, critical 90%, Disk warning 75%, critical 90%. Troubleshooting: Verificar conectividade SNMP, comunidade e versão. Confirmar que o agente SNMP está ativo no dispositivo alvo.",
+    "metadata": {
+      "type": "system",
+      "category": "monitoring",
+      "title": "SNMP Monitoring System"
     }
   },
-  "playbooks": {
-    "high_cpu_investigation": {
-      "category": "performance",
-      "description": "Investigação de alto uso de CPU em servidores",
-      "conditions": "CPU > 85% por mais de 15 minutos",
-      "steps": [
-        "Verificar processos que mais consomem CPU",
-        "Analisar histórico de uso nas últimas 24h",
-        "Verificar se há processos órfãos ou travados",
-        "Avaliar necessidade de otimização ou scaling",
-        "Considerar reinicialização de serviços específicos"
-      ],
-      "commands": [
-        "top",
-        "htop", 
-        "ps aux --sort=-%cpu",
-        "iostat",
-        "vmstat"
-      ]
-    },
-    "memory_leak_investigation": {
-      "category": "performance",
-      "description": "Investigação de vazamento de memória",
-      "conditions": "Uso de memória crescendo constantemente",
-      "steps": [
-        "Identificar processos com maior uso de memória",
-        "Analisar tendência de crescimento",
-        "Verificar logs de aplicação",
-        "Avaliar necessidade de restart de aplicações",
-        "Implementar monitoramento mais granular"
-      ],
-      "commands": [
-        "free -h",
-        "ps aux --sort=-%mem",
-        "cat /proc/meminfo",
-        "pmap -d <pid>"
-      ]
-    },
-    "network_connectivity_check": {
-      "category": "network",
-      "description": "Verificação de conectividade de rede",
-      "conditions": "Falhas de conectividade ou timeouts SNMP",
-      "steps": [
-        "Testar conectividade básica com ping",
-        "Verificar porta SNMP específica",
-        "Testar diferentes versões SNMP",
-        "Verificar configurações de firewall",
-        "Validar credenciais SNMP"
-      ],
-      "commands": [
-        "ping -c 4 <host>",
-        "telnet <host> 161",
-        "snmpwalk -v2c -c public <host> system",
-        "nmap -sU -p 161 <host>"
-      ]
-    }
-  },
-  "faqs": [
-    {
-      "question": "Por que um endpoint aparece como offline?",
-      "answer": "Um endpoint pode aparecer offline por várias razões: 1) Dispositivo realmente desligado, 2) Problemas de rede/conectividade, 3) Agente SNMP inativo, 4) Configurações incorretas (porta, comunidade, versão SNMP), 5) Firewall bloqueando tráfego SNMP.",
-      "category": "troubleshooting",
-      "tags": ["endpoint", "offline", "connectivity", "snmp"]
-    },
-    {
-      "question": "Como interpretar métricas de CPU?",
-      "answer": "A métrica hrProcessorLoad representa a porcentagem de uso da CPU. Valores normais: 0-50% (baixo), 50-70% (moderado), 70-85% (alto), >85% (crítico). Picos ocasionais são normais, mas uso sustentado >85% indica necessidade de investigação.",
-      "category": "metrics",
-      "tags": ["cpu", "performance", "metrics", "hrProcessorLoad"]
-    },
-    {
-      "question": "Qual a diferença entre memória total e disponível?",
-      "answer": "memTotalReal é a quantidade total de RAM física no sistema. memAvailReal é a memória atualmente livre/disponível para novos processos. O uso de memória é calculado como (Total - Disponível) / Total * 100%.",
-      "category": "metrics", 
-      "tags": ["memory", "ram", "memTotalReal", "memAvailReal"]
-    },
-    {
-      "question": "Como são calculados os alertas automáticos?",
-      "answer": "Alertas são gerados com base em regras configuráveis que monitoram métricas contra limites predefinidos. Exemplo: CPU > 85% por 3 verificações consecutivas gera alerta crítico. O sistema suporta múltiplas condições e diferentes níveis de severidade.",
+  {
+    "content": "Sistema de alertas e notificações para problemas de infraestrutura. Níveis de severidade: low, medium, high, critical. Status dos alertas: active, acknowledged, resolved. Categorias: infrastructure, security, performance, network. Métricas importantes: alert_count, resolution_time, escalation_rate. Tempos de resposta: Critical alerts 15min, High alerts 1hour, Medium alerts 4hours. Troubleshooting: Verificar regras de alerta, configurações de notificação e logs do sistema de alertas.",
+    "metadata": {
+      "type": "system", 
       "category": "alerting",
+      "title": "Alert System"
+    }
+  },
+  {
+    "content": "Playbook para investigação de alto uso de CPU em servidores. Condições: CPU > 85% por mais de 15 minutos. Passos: 1) Verificar processos que mais consomem CPU, 2) Analisar histórico de uso nas últimas 24h, 3) Verificar se há processos órfãos ou travados, 4) Avaliar necessidade de otimização ou scaling, 5) Considerar reinicialização de serviços específicos. Comandos úteis: top, htop, ps aux --sort=-%cpu, iostat, vmstat",
+    "metadata": {
+      "type": "playbook",
+      "category": "performance", 
+      "title": "High CPU Investigation"
+    }
+  },
+  {
+    "content": "Playbook para investigação de vazamento de memória. Condições: Uso de memória crescendo constantemente. Passos: 1) Identificar processos com maior uso de memória, 2) Analisar tendência de crescimento, 3) Verificar logs de aplicação, 4) Avaliar necessidade de restart de aplicações, 5) Implementar monitoramento mais granular. Comandos úteis: free -h, ps aux --sort=-%mem, cat /proc/meminfo, pmap -d <pid>",
+    "metadata": {
+      "type": "playbook",
+      "category": "performance",
+      "title": "Memory Leak Investigation"
+    }
+  },
+  {
+    "content": "Playbook para verificação de conectividade de rede. Condições: Falhas de conectividade ou timeouts SNMP. Passos: 1) Testar conectividade básica com ping, 2) Verificar porta SNMP específica, 3) Testar diferentes versões SNMP, 4) Verificar configurações de firewall, 5) Validar credenciais SNMP. Comandos úteis: ping -c 4 <host>, telnet <host> 161, snmpwalk -v2c -c public <host> system, nmap -sU -p 161 <host>",
+    "metadata": {
+      "type": "playbook",
+      "category": "network",
+      "title": "Network Connectivity Check"
+    }
+  },
+  {
+    "content": "Por que um endpoint aparece como offline? Um endpoint pode aparecer offline por várias razões: 1) Dispositivo realmente desligado, 2) Problemas de rede/conectividade, 3) Agente SNMP inativo, 4) Configurações incorretas (porta, comunidade, versão SNMP), 5) Firewall bloqueando tráfego SNMP.",
+    "metadata": {
+      "type": "faq",
+      "category": "troubleshooting",
+      "title": "Endpoint Offline",
+      "tags": ["endpoint", "offline", "connectivity", "snmp"]
+    }
+  },
+  {
+    "content": "Como interpretar métricas de CPU? A métrica hrProcessorLoad representa a porcentagem de uso da CPU. Valores normais: 0-50% (baixo), 50-70% (moderado), 70-85% (alto), >85% (crítico). Picos ocasionais são normais, mas uso sustentado >85% indica necessidade de investigação.",
+    "metadata": {
+      "type": "faq",
+      "category": "metrics",
+      "title": "CPU Metrics Interpretation", 
+      "tags": ["cpu", "performance", "metrics", "hrProcessorLoad"]
+    }
+  },
+  {
+    "content": "Qual a diferença entre memória total e disponível? memTotalReal é a quantidade total de RAM física no sistema. memAvailReal é a memória atualmente livre/disponível para novos processos. O uso de memória é calculado como (Total - Disponível) / Total * 100%.",
+    "metadata": {
+      "type": "faq",
+      "category": "metrics",
+      "title": "Memory Metrics Explanation",
+      "tags": ["memory", "ram", "memTotalReal", "memAvailReal"]
+    }
+  },
+  {
+    "content": "Como são calculados os alertas automáticos? Alertas são gerados com base em regras configuráveis que monitoram métricas contra limites predefinidos. Exemplo: CPU > 85% por 3 verificações consecutivas gera alerta crítico. O sistema suporta múltiplas condições e diferentes níveis de severidade.",
+    "metadata": {
+      "type": "faq",
+      "category": "alerting",
+      "title": "Automatic Alerts Calculation",
       "tags": ["alerts", "rules", "thresholds", "automation"]
-    },
-    {
-      "question": "O que fazer quando há muitos alertas críticos?",
-      "answer": "Em caso de múltiplos alertas críticos: 1) Priorize por impacto nos negócios, 2) Identifique se há uma causa raiz comum, 3) Resolva problemas de infraestrutura básica primeiro, 4) Considere se é necessário escalonamento, 5) Documente ações tomadas.",
+    }
+  },
+  {
+    "content": "O que fazer quando há muitos alertas críticos? Em caso de múltiplos alertas críticos: 1) Priorize por impacto nos negócios, 2) Identifique se há uma causa raiz comum, 3) Resolva problemas de infraestrutura básica primeiro, 4) Considere se é necessário escalonamento, 5) Documente ações tomadas.",
+    "metadata": {
+      "type": "faq",
       "category": "incident_management",
+      "title": "Multiple Critical Alerts",
       "tags": ["critical", "alerts", "incident", "prioritization"]
-    },
-    {
-      "question": "Como otimizar o desempenho do monitoramento?",
-      "answer": "Para otimizar: 1) Ajuste intervalos de coleta baseado na criticidade, 2) Use SNMP bulk operations quando possível, 3) Implemente cache para dados estáticos, 4) Configure timeouts apropriados, 5) Monitore apenas OIDs necessários, 6) Use SNMPv3 para segurança sem impacto significativo na performance.",
+    }
+  },
+  {
+    "content": "Como otimizar o desempenho do monitoramento? Para otimizar: 1) Ajuste intervalos de coleta baseado na criticidade, 2) Use SNMP bulk operations quando possível, 3) Implemente cache para dados estáticos, 4) Configure timeouts apropriados, 5) Monitore apenas OIDs necessários, 6) Use SNMPv3 para segurança sem impacto significativo na performance.",
+    "metadata": {
+      "type": "faq",
       "category": "optimization",
+      "title": "Monitoring Performance Optimization",
       "tags": ["performance", "optimization", "snmp", "monitoring"]
     }
-  ]
-}
+  }
+]
