@@ -16,7 +16,6 @@ class RAGService:
     
     def __init__(self):
         self.vector_store = VectorStore()
-        self.infrawatch_client = InfraWatchClient()
         self.gemini_service = GeminiService()
         
         logger.info("RAG Service inicializado")
@@ -25,7 +24,8 @@ class RAGService:
         self, 
         query: str,
         conversation_history: Optional[List[ChatMessage]] = None,
-        include_live_data: bool = True
+        include_live_data: bool = True,
+        infrawatch_client: Optional[InfraWatchClient] = None
     ) -> AnalysisResponse:
         """Processa uma query usando RAG com dados ao vivo"""
         
@@ -39,10 +39,10 @@ class RAGService:
                 n_results=3
             )
             
-            # 2. Busca dados ao vivo se solicitado
+            # 2. Busca dados ao vivo se solicitado e cliente disponível
             live_data_task = None
-            if include_live_data:
-                live_data_task = self._get_live_infrastructure_data()
+            if include_live_data and infrawatch_client:
+                live_data_task = self._get_live_infrastructure_data(infrawatch_client)
             
             # Executa buscas em paralelo
             if live_data_task:
@@ -83,14 +83,14 @@ class RAGService:
                 metadata={"error": str(e)}
             )
     
-    async def _get_live_infrastructure_data(self) -> Optional[Dict[str, Any]]:
+    async def _get_live_infrastructure_data(self, infrawatch_client: InfraWatchClient) -> Optional[Dict[str, Any]]:
         """Busca dados atuais da infraestrutura"""
         
         try:
             # Busca dados em paralelo
-            overview_task = self.infrawatch_client.get_infrastructure_overview()
-            alerts_task = self.infrawatch_client.get_alerts(status="active", limit=10)
-            metrics_task = self.infrawatch_client.get_recent_metrics(hours=1)
+            overview_task = infrawatch_client.get_infrastructure_overview()
+            alerts_task = infrawatch_client.get_alerts(status="ACTIVE", limit=10)
+            metrics_task = infrawatch_client.get_recent_metrics(hours=1)
             
             overview, alerts, recent_metrics = await asyncio.gather(
                 overview_task, alerts_task, metrics_task,
@@ -111,34 +111,43 @@ class RAGService:
             logger.error(f"Erro ao buscar dados ao vivo: {e}")
             return None
     
-    async def generate_automatic_insights(self) -> List[AIInsight]:
+    async def generate_automatic_insights(self, infrastructure_data: Optional[Dict[str, Any]] = None) -> List[AIInsight]:
         """Gera insights automáticos baseados nos dados atuais"""
         
         try:
             logger.info("Gerando insights automáticos...")
             
-            # Busca dados recentes
-            overview = await self.infrawatch_client.get_infrastructure_overview()
-            alerts = await self.infrawatch_client.get_alerts(status="active")
-            recent_metrics = await self.infrawatch_client.get_recent_metrics(hours=6)
-            
             insights = []
             
-            # 1. Análise de alertas críticos
-            critical_alerts = [a for a in alerts if a.get("severity") == "critical"]
-            if critical_alerts:
+            # Se não temos dados da infraestrutura, gera insights genéricos
+            if not infrastructure_data:
                 insight = AIInsight(
-                    title=f"{len(critical_alerts)} Alertas Críticos Detectados",
-                    description=f"Sistema possui {len(critical_alerts)} alertas críticos ativos que requerem atenção imediata",
-                    type=InsightType.CRITICAL,
+                    title="Sistema de Monitoramento Desconectado",
+                    description="Não foi possível conectar com o backend InfraWatch para obter dados atualizados",
+                    type=InsightType.WARNING,
                     confidence=95.0,
-                    recommendation="Revisar e resolver alertas críticos prioritariamente",
-                    source_data={"critical_alerts_count": len(critical_alerts)}
+                    recommendation="Verificar conectividade com o backend e credenciais de autenticação",
+                    source_data={"connection_status": "disconnected"}
+                )
+                insights.append(insight)
+                return insights
+            
+            # 1. Análise de alertas críticos
+            active_alerts = infrastructure_data.get("active_alerts", 0)
+            if active_alerts > 0:
+                insight_type = InsightType.CRITICAL if active_alerts >= 5 else InsightType.WARNING
+                insight = AIInsight(
+                    title=f"{active_alerts} Alertas Ativos Detectados",
+                    description=f"Sistema possui {active_alerts} alertas ativos que requerem atenção",
+                    type=insight_type,
+                    confidence=95.0,
+                    recommendation="Revisar e resolver alertas ativos prioritariamente",
+                    source_data={"active_alerts_count": active_alerts}
                 )
                 insights.append(insight)
             
             # 2. Análise de uptime
-            uptime = overview.get("uptime_percentage", 0)
+            uptime = infrastructure_data.get("uptime_percentage", 0)
             if uptime < 99.0:
                 insight_type = InsightType.CRITICAL if uptime < 95.0 else InsightType.WARNING
                 insight = AIInsight(
@@ -151,31 +160,22 @@ class RAGService:
                 )
                 insights.append(insight)
             
-            # 3. Análise de tendências de CPU
-            high_cpu_endpoints = []
-            for metric in recent_metrics:
-                cpu_load = metric.metrics.get("hrProcessorLoad")
-                if cpu_load and isinstance(cpu_load, str) and cpu_load.replace('%', '').isdigit():
-                    cpu_value = float(cpu_load.replace('%', ''))
-                    if cpu_value > 85:
-                        high_cpu_endpoints.append({
-                            "endpoint": metric.endpoint_name,
-                            "cpu": cpu_value
-                        })
-            
-            if high_cpu_endpoints:
+            # 3. Análise de endpoints offline
+            total_endpoints = infrastructure_data.get("total_endpoints", 0)
+            offline_endpoints = infrastructure_data.get("offline_endpoints", 0)
+            if offline_endpoints > 0:
+                insight_type = InsightType.CRITICAL if offline_endpoints > total_endpoints * 0.2 else InsightType.WARNING
                 insight = AIInsight(
-                    title="Alto Uso de CPU Detectado",
-                    description=f"{len(high_cpu_endpoints)} endpoints com CPU > 85%: {', '.join([e['endpoint'] for e in high_cpu_endpoints[:3]])}",
-                    type=InsightType.WARNING,
-                    confidence=92.0,
-                    recommendation="Verificar processos em execução e considerar otimização ou scale-out",
-                    source_data={"high_cpu_endpoints": high_cpu_endpoints}
+                    title=f"{offline_endpoints} Endpoints Offline",
+                    description=f"{offline_endpoints} de {total_endpoints} endpoints estão offline",
+                    type=insight_type,
+                    confidence=90.0,
+                    recommendation="Investigar conectividade e status dos endpoints offline",
+                    source_data={"offline_endpoints": offline_endpoints, "total_endpoints": total_endpoints}
                 )
                 insights.append(insight)
             
             # 4. Análise de crescimento
-            total_endpoints = overview.get("total_endpoints", 0)
             if total_endpoints > 20:
                 insight = AIInsight(
                     title="Infraestrutura em Crescimento",
@@ -188,14 +188,14 @@ class RAGService:
                 insights.append(insight)
             
             # 5. Insight positivo se tudo estiver bem
-            if not critical_alerts and uptime >= 99.0 and not high_cpu_endpoints:
+            if active_alerts == 0 and uptime >= 99.0 and offline_endpoints == 0:
                 insight = AIInsight(
                     title="Sistema Operando Normalmente",
                     description="Todos os indicadores principais estão dentro dos parâmetros esperados",
                     type=InsightType.SUCCESS,
                     confidence=90.0,
                     recommendation="Manter rotinas de monitoramento e backups atualizados",
-                    source_data=overview
+                    source_data=infrastructure_data
                 )
                 insights.append(insight)
             
@@ -287,13 +287,25 @@ class RAGService:
         self, 
         endpoint_name: str, 
         metric_name: str,
-        time_window_hours: int = 24
+        time_window_hours: int = 24,
+        infrawatch_client: Optional[InfraWatchClient] = None
     ) -> AnalysisResponse:
         """Analisa uma métrica específica de um endpoint"""
         
         try:
+            if not infrawatch_client:
+                return AnalysisResponse(
+                    answer="Não foi possível analisar a métrica: conexão com InfraWatch não disponível.",
+                    confidence=0.0,
+                    sources=[],
+                    suggestions=[
+                        "Verificar conectividade com o backend InfraWatch",
+                        "Verificar credenciais de autenticação"
+                    ]
+                )
+            
             # Busca dados históricos
-            recent_metrics = await self.infrawatch_client.get_recent_metrics(hours=time_window_hours)
+            recent_metrics = await infrawatch_client.get_recent_metrics(endpoint_ip=endpoint_name, hours=time_window_hours)
             
             # Filtra métricas do endpoint específico
             endpoint_metrics = [m for m in recent_metrics if m.endpoint_name.lower() == endpoint_name.lower()]

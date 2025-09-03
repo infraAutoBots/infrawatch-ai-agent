@@ -2,6 +2,7 @@ import asyncio
 import httpx
 from typing import Dict, List, Any, Optional
 from datetime import datetime, timedelta
+import json
 
 from app.core.config import settings
 from app.core.logging import get_logger
@@ -15,23 +16,118 @@ class InfraWatchClient:
     
     def __init__(self):
         self.base_url = settings.infrawatch_api_url
-        self.api_token = settings.infrawatch_api_token
         self.timeout = 30.0
+        self._access_token = None
+        self._refresh_token = None
+        self._token_expires_at = None
+        
+        # Credenciais específicas do agente
+        self.agent_email = settings.infrawatch_agent_email
+        self.agent_password = settings.infrawatch_agent_password
+        
+    async def login(self) -> bool:
+        """Faz login na API do InfraWatch e obtém o token de acesso"""
+        
+        if not self.agent_email or not self.agent_password:
+            logger.error("Credenciais do agente não configuradas")
+            return False
+            
+        try:
+            login_data = {
+                "email": self.agent_email,
+                "password": self.agent_password
+            }
+            
+            async with httpx.AsyncClient(timeout=self.timeout) as client:
+                response = await client.post(
+                    f"{self.base_url}/auth/login",
+                    json=login_data
+                )
+                
+                if response.status_code == 200:
+                    data = response.json()
+                    self._access_token = data.get("access_token")
+                    self._refresh_token = data.get("refresh_token")
+                    
+                    # Calcula quando o token expira (assumindo 30 minutos como padrão)
+                    expires_in_minutes = 30  # Pode ser obtido da configuração
+                    self._token_expires_at = datetime.now() + timedelta(minutes=expires_in_minutes - 5)  # 5 min de margem
+                    
+                    logger.info("Login realizado com sucesso no InfraWatch")
+                    return True
+                else:
+                    logger.error(f"Falha no login: {response.status_code} - {response.text}")
+                    return False
+                    
+        except Exception as e:
+            logger.error(f"Erro durante o login: {e}")
+            return False
+    
+    async def refresh_access_token(self) -> bool:
+        """Renova o token de acesso usando o refresh token"""
+        
+        if not self._refresh_token:
+            logger.warning("Refresh token não disponível, realizando login completo")
+            return await self.login()
+        
+        try:
+            headers = {"Authorization": f"Bearer {self._refresh_token}"}
+            
+            async with httpx.AsyncClient(timeout=self.timeout) as client:
+                response = await client.get(
+                    f"{self.base_url}/auth/refresh",
+                    headers=headers
+                )
+                
+                if response.status_code == 200:
+                    data = response.json()
+                    self._access_token = data.get("access_token")
+                    
+                    # Atualiza o tempo de expiração
+                    expires_in_minutes = 30
+                    self._token_expires_at = datetime.now() + timedelta(minutes=expires_in_minutes - 5)
+                    
+                    logger.info("Token renovado com sucesso")
+                    return True
+                else:
+                    logger.error(f"Falha na renovação do token: {response.status_code}")
+                    # Se falha na renovação, tenta login completo
+                    return await self.login()
+                    
+        except Exception as e:
+            logger.error(f"Erro durante renovação do token: {e}")
+            return await self.login()
+    
+    async def ensure_authenticated(self) -> bool:
+        """Garante que o cliente está autenticado com token válido"""
+        
+        # Se não tem token, faz login
+        if not self._access_token:
+            return await self.login()
+        
+        # Se o token está próximo do vencimento, renova
+        if self._token_expires_at and datetime.now() >= self._token_expires_at:
+            logger.info("Token próximo do vencimento, renovando...")
+            return await self.refresh_access_token()
+        
+        return True
         
     async def _make_request(
         self, 
         method: str, 
         endpoint: str, 
         data: Optional[Dict] = None,
-        params: Optional[Dict] = None
+        params: Optional[Dict] = None,
+        retry_on_auth_failure: bool = True
     ) -> Dict[str, Any]:
         """Faz uma requisição HTTP para a API do InfraWatch"""
         
-        url = f"{self.base_url}{endpoint}"
-        headers = {}
+        # Garante que está autenticado
+        if not await self.ensure_authenticated():
+            raise Exception("Falha na autenticação com a API do InfraWatch")
         
-        if self.api_token:
-            headers["Authorization"] = f"Bearer {self.api_token}"
+        url = f"{self.base_url}{endpoint}"
+        headers = {"Authorization": f"Bearer {self._access_token}"}
         
         try:
             async with httpx.AsyncClient(timeout=self.timeout) as client:
@@ -45,6 +141,21 @@ class InfraWatchClient:
                     response = await client.delete(url, headers=headers, params=params)
                 else:
                     raise ValueError(f"Método HTTP não suportado: {method}")
+                
+                # Se recebeu 401/403 e deve tentar reautenticar
+                if response.status_code in [401, 403] and retry_on_auth_failure:
+                    logger.warning("Token inválido, tentando reautenticar...")
+                    if await self.login():
+                        # Tenta a requisição novamente com novo token
+                        headers = {"Authorization": f"Bearer {self._access_token}"}
+                        if method.upper() == "GET":
+                            response = await client.get(url, headers=headers, params=params)
+                        elif method.upper() == "POST":
+                            response = await client.post(url, headers=headers, json=data, params=params)
+                        elif method.upper() == "PUT":
+                            response = await client.put(url, headers=headers, json=data, params=params)
+                        elif method.upper() == "DELETE":
+                            response = await client.delete(url, headers=headers, params=params)
                 
                 response.raise_for_status()
                 return response.json()
@@ -61,35 +172,57 @@ class InfraWatchClient:
     
     async def get_endpoints(self, user_id: Optional[int] = None) -> List[Dict[str, Any]]:
         """Busca todos os endpoints monitorados"""
-        params = {"user_id": user_id} if user_id else None
-        return await self._make_request("GET", "/api/endpoints", params=params)
+        try:
+            data = await self._make_request("GET", "/monitor/status")
+            # A rota /monitor/status retorna informações dos endpoints
+            return data.get("endpoints", [])
+        except Exception as e:
+            logger.error(f"Erro ao buscar endpoints: {e}")
+            return []
     
-    async def get_endpoint_data(self, endpoint_id: int) -> Dict[str, Any]:
-        """Busca dados de um endpoint específico"""
-        return await self._make_request("GET", f"/api/endpoints/{endpoint_id}/data")
+    async def get_endpoint_data(self, endpoint_ip: str) -> Dict[str, Any]:
+        """Busca dados de um endpoint específico por IP"""
+        try:
+            return await self._make_request("GET", f"/monitor/{endpoint_ip}")
+        except Exception as e:
+            logger.error(f"Erro ao buscar dados do endpoint {endpoint_ip}: {e}")
+            return {}
+    
+    async def get_endpoint_history(
+        self, 
+        endpoint_ip: Optional[str] = None,
+        hours: int = 24
+    ) -> List[Dict[str, Any]]:
+        """Busca histórico de dados dos endpoints"""
+        
+        try:
+            params = {"hours": hours}
+            if endpoint_ip:
+                params["endpoint_ip"] = endpoint_ip
+                
+            data = await self._make_request("GET", "/monitor/history", params=params)
+            return data.get("history", [])
+            
+        except Exception as e:
+            logger.error(f"Erro ao buscar histórico: {e}")
+            return []
     
     async def get_recent_metrics(
         self, 
-        endpoint_id: Optional[int] = None,
+        endpoint_ip: Optional[str] = None,
         hours: int = 24
     ) -> List[InfrastructureMetrics]:
-        """Busca métricas recentes dos endpoints"""
-        
-        since = datetime.now() - timedelta(hours=hours)
-        params = {
-            "since": since.isoformat(),
-            "endpoint_id": endpoint_id
-        }
+        """Busca métricas recentes dos endpoints usando histórico"""
         
         try:
-            data = await self._make_request("GET", "/api/metrics/recent", params=params)
+            history_data = await self.get_endpoint_history(endpoint_ip, hours)
             
             metrics_list = []
-            for item in data.get("metrics", []):
+            for item in history_data:
                 metrics = InfrastructureMetrics(
-                    endpoint_id=item.get("endpoint_id"),
-                    endpoint_name=item.get("endpoint_name", "Unknown"),
-                    metrics=item.get("metrics", {}),
+                    endpoint_id=item.get("endpoint_ip", "unknown"),
+                    endpoint_name=item.get("nickname", "Unknown"),
+                    metrics=item.get("data", {}),
                     timestamp=datetime.fromisoformat(item.get("timestamp", datetime.now().isoformat())),
                     status=item.get("status", "unknown")
                 )
@@ -116,7 +249,8 @@ class InfraWatchClient:
             params["severity"] = severity
         
         try:
-            return await self._make_request("GET", "/api/alerts", params=params)
+            data = await self._make_request("GET", "/alerts", params=params)
+            return data.get("alerts", [])
         except Exception as e:
             logger.error(f"Erro ao buscar alertas: {e}")
             return []
@@ -124,15 +258,37 @@ class InfraWatchClient:
     async def get_alert_by_id(self, alert_id: int) -> Optional[Dict[str, Any]]:
         """Busca um alerta específico por ID"""
         try:
-            return await self._make_request("GET", f"/api/alerts/{alert_id}")
+            return await self._make_request("GET", f"/alerts/{alert_id}")
         except Exception as e:
             logger.error(f"Erro ao buscar alerta {alert_id}: {e}")
             return None
     
+    async def get_alerts_stats(self) -> Dict[str, Any]:
+        """Busca estatísticas de alertas"""
+        try:
+            return await self._make_request("GET", "/alerts/stats")
+        except Exception as e:
+            logger.error(f"Erro ao buscar estatísticas de alertas: {e}")
+            return {"total": 0, "active": 0, "resolved": 0}
+    
     async def get_system_health(self) -> Dict[str, Any]:
         """Busca informações de saúde geral do sistema"""
         try:
-            return await self._make_request("GET", "/api/system/health")
+            # Combina dados de status e alertas para criar visão de saúde
+            status_data = await self._make_request("GET", "/monitor/status")
+            alerts_stats = await self.get_alerts_stats()
+            
+            endpoints = status_data.get("endpoints", [])
+            total_endpoints = len(endpoints)
+            online_endpoints = sum(1 for ep in endpoints if ep.get("status") == "online")
+            
+            return {
+                "status": "healthy" if online_endpoints == total_endpoints else "degraded",
+                "endpoints_total": total_endpoints,
+                "endpoints_online": online_endpoints,
+                "alerts_active": alerts_stats.get("active", 0),
+                "last_update": datetime.now().isoformat()
+            }
         except Exception as e:
             logger.error(f"Erro ao buscar saúde do sistema: {e}")
             return {
@@ -145,18 +301,47 @@ class InfraWatchClient:
     
     async def get_performance_trends(
         self, 
-        endpoint_id: Optional[int] = None,
+        endpoint_ip: Optional[str] = None,
         days: int = 7
     ) -> Dict[str, Any]:
-        """Busca tendências de performance"""
-        
-        params = {
-            "days": days,
-            "endpoint_id": endpoint_id
-        }
+        """Busca tendências de performance através do histórico"""
         
         try:
-            return await self._make_request("GET", "/api/analytics/trends", params=params)
+            # Busca histórico de vários dias
+            hours = days * 24
+            history_data = await self.get_endpoint_history(endpoint_ip, hours)
+            
+            # Processa dados para extrair tendências
+            trends = {
+                "cpu_trend": [],
+                "memory_trend": [],
+                "uptime_trend": []
+            }
+            
+            for item in history_data:
+                data = item.get("data", {})
+                timestamp = item.get("timestamp")
+                
+                if data.get("cpu"):
+                    trends["cpu_trend"].append({
+                        "timestamp": timestamp,
+                        "value": data.get("cpu")
+                    })
+                
+                if data.get("memory"):
+                    trends["memory_trend"].append({
+                        "timestamp": timestamp,
+                        "value": data.get("memory")
+                    })
+            
+            return {
+                "trends": trends,
+                "summary": {
+                    "data_points": len(history_data),
+                    "period_days": days
+                }
+            }
+            
         except Exception as e:
             logger.error(f"Erro ao buscar tendências: {e}")
             return {"trends": [], "summary": {}}
@@ -164,9 +349,9 @@ class InfraWatchClient:
     async def get_infrastructure_overview(self) -> Dict[str, Any]:
         """Busca visão geral da infraestrutura"""
         try:
-            # Busca dados em paralelo
+            # Busca dados em paralelo usando as rotas corretas
             endpoints_task = self.get_endpoints()
-            alerts_task = self.get_alerts(status="active")
+            alerts_task = self.get_alerts(status="ACTIVE")
             health_task = self.get_system_health()
             
             endpoints, alerts, health = await asyncio.gather(
@@ -208,3 +393,28 @@ class InfraWatchClient:
                 "health_status": "unknown",
                 "last_update": datetime.now().isoformat()
             }
+    
+    async def add_endpoint(self, endpoint_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Adiciona um novo endpoint para monitoramento"""
+        try:
+            return await self._make_request("POST", "/monitor", data=endpoint_data)
+        except Exception as e:
+            logger.error(f"Erro ao adicionar endpoint: {e}")
+            raise
+    
+    async def update_endpoint(self, endpoint_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Atualiza um endpoint existente"""
+        try:
+            return await self._make_request("PUT", "/monitor", data=endpoint_data)
+        except Exception as e:
+            logger.error(f"Erro ao atualizar endpoint: {e}")
+            raise
+    
+    async def delete_endpoint(self, endpoint_ip: str) -> bool:
+        """Remove um endpoint do monitoramento"""
+        try:
+            await self._make_request("DELETE", f"/monitor/{endpoint_ip}")
+            return True
+        except Exception as e:
+            logger.error(f"Erro ao remover endpoint {endpoint_ip}: {e}")
+            return False

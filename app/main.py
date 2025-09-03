@@ -14,6 +14,7 @@ from app.core.config import settings
 from app.core.logging import setup_logging, get_logger
 from app.api.chat import router as chat_router
 from app.api.insights import router as insights_router
+from app.services.auth_service import auth_service
 
 
 # Setup inicial
@@ -29,8 +30,14 @@ async def lifespan(app: FastAPI):
     
     # Inicialização
     try:
-        # Aqui você pode adicionar inicializações assíncronas se necessário
-        # Por exemplo, inicializar conexões de banco, carregar modelos, etc.
+        # Inicializa o serviço de autenticação
+        logger.info("🔐 Inicializando autenticação com InfraWatch Backend...")
+        auth_success = await auth_service.initialize()
+        
+        if auth_success:
+            logger.info("✅ Autenticação inicializada com sucesso")
+        else:
+            logger.warning("⚠️ Falha na inicialização da autenticação - algumas funcionalidades podem não funcionar")
         
         logger.info("✅ AI Agent inicializado com sucesso")
         

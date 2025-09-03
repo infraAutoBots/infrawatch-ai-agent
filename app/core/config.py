@@ -19,6 +19,8 @@ class Settings(BaseSettings):
     # InfraWatch Backend
     infrawatch_api_url: str = Field(default="http://localhost:8000", env="INFRAWATCH_API_URL")
     infrawatch_api_token: Optional[str] = Field(default=None, env="INFRAWATCH_API_TOKEN")
+    infrawatch_agent_email: str = Field(default="ndondadaniel2020@gmail.com", env="INFRAWATCH_AGENT_EMAIL")
+    infrawatch_agent_password: str = Field(default="ndondadaniel2020@gmail.com", env="INFRAWATCH_AGENT_PASSWORD")
     
     # Vector Database
     vector_db_path: str = Field(default="./vector_db", env="VECTOR_DB_PATH")

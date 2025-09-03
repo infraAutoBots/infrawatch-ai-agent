@@ -1,9 +1,11 @@
-from fastapi import APIRouter, HTTPException, BackgroundTasks
+from fastapi import APIRouter, HTTPException, BackgroundTasks, Depends
 from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
 from datetime import datetime
 
 from app.services.rag import RAGService
+from app.services.auth_service import get_infrawatch_client
+from app.services.infrawatch_client import InfraWatchClient
 from app.models import ChatMessage, MessageType
 from app.core.logging import get_logger
 
@@ -26,7 +28,10 @@ class ChatResponse(BaseModel):
 
 
 @router.post("/", response_model=ChatResponse)
-async def chat_with_ai(request: ChatRequest):
+async def chat_with_ai(
+    request: ChatRequest,
+    client: Optional[InfraWatchClient] = Depends(get_infrawatch_client)
+):
     """Endpoint para chat com a IA"""
     
     try:
@@ -45,11 +50,12 @@ async def chat_with_ai(request: ChatRequest):
                 )
                 conversation_history.append(message)
         
-        # Processa a query com RAG
+        # Processa a query com RAG, incluindo cliente autenticado se disponível
         response = await rag_service.process_query(
             query=request.message,
             conversation_history=conversation_history,
-            include_live_data=request.include_live_data
+            include_live_data=request.include_live_data,
+            infrawatch_client=client
         )
         
         # Formata resposta para incluir sugestões como ChatMessage
@@ -76,7 +82,10 @@ class QuickAnalysisRequest(BaseModel):
 
 
 @router.post("/analyze-metric", response_model=ChatResponse)
-async def analyze_metric(request: QuickAnalysisRequest):
+async def analyze_metric(
+    request: QuickAnalysisRequest,
+    client: Optional[InfraWatchClient] = Depends(get_infrawatch_client)
+):
     """Endpoint para análise rápida de uma métrica específica"""
     
     try:
@@ -85,7 +94,8 @@ async def analyze_metric(request: QuickAnalysisRequest):
         response = await rag_service.analyze_specific_metric(
             endpoint_name=request.endpoint_name,
             metric_name=request.metric_name,
-            time_window_hours=request.time_window_hours
+            time_window_hours=request.time_window_hours,
+            infrawatch_client=client
         )
         
         chat_response = ChatResponse(
@@ -96,6 +106,11 @@ async def analyze_metric(request: QuickAnalysisRequest):
         return chat_response
         
     except Exception as e:
+        logger.error(f"Erro na análise de métrica: {e}")
+        raise HTTPException(
+            status_code=500, 
+            detail=f"Erro interno do servidor: {str(e)}"
+        )
         logger.error(f"Erro na análise de métrica: {e}")
         raise HTTPException(
             status_code=500, 
