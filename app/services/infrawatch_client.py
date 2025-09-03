@@ -163,6 +163,9 @@ class InfraWatchClient:
         except httpx.TimeoutException:
             logger.error(f"Timeout na requisição para {url}")
             raise Exception(f"Timeout na requisição para InfraWatch API")
+        except httpx.HTTPStatusError as e:
+            logger.error(f"Erro HTTP na requisição para {url}: {e}")
+            raise Exception(f"Erro na comunicação com InfraWatch API: {e}")
         except httpx.HTTPError as e:
             logger.error(f"Erro HTTP na requisição para {url}: {e}")
             raise Exception(f"Erro na comunicação com InfraWatch API: {e}")
@@ -242,15 +245,17 @@ class InfraWatchClient:
     ) -> List[Dict[str, Any]]:
         """Busca alertas do sistema"""
         
-        params = {"limit": limit}
+        params = {"size": limit}
         if status:
-            params["status"] = status
+            # Converte o status para minúsculo para compatibilidade com o backend
+            params["status"] = status.lower()
         if severity:
-            params["severity"] = severity
+            # Converte a severidade para minúsculo para compatibilidade com o backend
+            params["severity"] = severity.lower()
         
         try:
-            data = await self._make_request("GET", "/alerts", params=params)
-            return data.get("alerts", [])
+            data = await self._make_request("GET", "/alerts/", params=params)
+            return data.get("data", [])  # A API retorna os alertas no campo "data"
         except Exception as e:
             logger.error(f"Erro ao buscar alertas: {e}")
             return []
@@ -351,7 +356,7 @@ class InfraWatchClient:
         try:
             # Busca dados em paralelo usando as rotas corretas
             endpoints_task = self.get_endpoints()
-            alerts_task = self.get_alerts(status="ACTIVE")
+            alerts_task = self.get_alerts(status="active")  # Usando "active" em minúsculas
             health_task = self.get_system_health()
             
             endpoints, alerts, health = await asyncio.gather(

@@ -229,3 +229,541 @@ For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/St
 2025-09-03 20:36:56 | INFO     | app.main:lifespan:38 | ✅ Autenticação inicializada com sucesso
 2025-09-03 20:36:56 | INFO     | app.main:lifespan:42 | ✅ AI Agent inicializado com sucesso
 2025-09-03 20:41:38 | INFO     | app.main:lifespan:47 | 🔄 Finalizando AI Agent...
+2025-09-03 20:41:40 | INFO     | app.core.logging:setup_logging:48 | Sistema de logging configurado
+2025-09-03 20:41:40 | INFO     | app.main:lifespan:29 | 🚀 Iniciando InfraWatch AI Agent...
+2025-09-03 20:41:40 | INFO     | app.main:lifespan:34 | 🔐 Inicializando autenticação com InfraWatch Backend...
+2025-09-03 20:41:40 | INFO     | app.services.auth_service:initialize:26 | Iniciando autenticação com InfraWatch Backend...
+2025-09-03 20:41:41 | INFO     | app.services.infrawatch_client:login:56 | Login realizado com sucesso no InfraWatch
+2025-09-03 20:41:41 | INFO     | app.services.auth_service:initialize:30 | Autenticação realizada com sucesso!
+2025-09-03 20:41:41 | INFO     | app.main:lifespan:38 | ✅ Autenticação inicializada com sucesso
+2025-09-03 20:41:41 | INFO     | app.main:lifespan:42 | ✅ AI Agent inicializado com sucesso
+2025-09-03 21:02:13 | INFO     | app.api.insights:get_automatic_insights:30 | Gerando insights automáticos...
+2025-09-03 21:02:17 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:02:17 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:02:18 | INFO     | app.services.rag.rag_service:generate_automatic_insights:118 | Gerando insights automáticos...
+2025-09-03 21:02:18 | INFO     | app.services.rag.rag_service:generate_automatic_insights:202 | Gerados 1 insights automáticos
+2025-09-03 21:02:19 | INFO     | app.api.insights:get_automatic_insights:50 | Retornando 1 insights automáticos
+2025-09-03 21:02:19 | INFO     | app.api.insights:get_automatic_insights:30 | Gerando insights automáticos...
+2025-09-03 21:02:22 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:02:22 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:02:23 | INFO     | app.services.rag.rag_service:generate_automatic_insights:118 | Gerando insights automáticos...
+2025-09-03 21:02:23 | INFO     | app.services.rag.rag_service:generate_automatic_insights:202 | Gerados 1 insights automáticos
+2025-09-03 21:02:23 | INFO     | app.api.insights:get_automatic_insights:50 | Retornando 1 insights automáticos
+2025-09-03 21:08:01 | INFO     | app.services.infrawatch_client:ensure_authenticated:110 | Token próximo do vencimento, renovando...
+2025-09-03 21:08:02 | INFO     | app.services.infrawatch_client:refresh_access_token:90 | Token renovado com sucesso
+2025-09-03 21:08:02 | INFO     | app.api.insights:get_automatic_insights:30 | Gerando insights automáticos...
+2025-09-03 21:08:06 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:08:06 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:08:07 | INFO     | app.services.rag.rag_service:generate_automatic_insights:118 | Gerando insights automáticos...
+2025-09-03 21:08:07 | INFO     | app.services.rag.rag_service:generate_automatic_insights:202 | Gerados 1 insights automáticos
+2025-09-03 21:08:07 | INFO     | app.api.insights:get_automatic_insights:50 | Retornando 1 insights automáticos
+2025-09-03 21:08:07 | INFO     | app.api.insights:get_automatic_insights:30 | Gerando insights automáticos...
+2025-09-03 21:08:11 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:08:11 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:08:12 | INFO     | app.services.rag.rag_service:generate_automatic_insights:118 | Gerando insights automáticos...
+2025-09-03 21:08:12 | INFO     | app.services.rag.rag_service:generate_automatic_insights:202 | Gerados 1 insights automáticos
+2025-09-03 21:08:12 | INFO     | app.api.insights:get_automatic_insights:50 | Retornando 1 insights automáticos
+2025-09-03 21:11:03 | INFO     | app.api.insights:get_automatic_insights:30 | Gerando insights automáticos...
+2025-09-03 21:11:07 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:11:07 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:11:08 | INFO     | app.services.rag.rag_service:generate_automatic_insights:118 | Gerando insights automáticos...
+2025-09-03 21:11:08 | INFO     | app.services.rag.rag_service:generate_automatic_insights:202 | Gerados 1 insights automáticos
+2025-09-03 21:11:08 | INFO     | app.api.insights:get_automatic_insights:50 | Retornando 1 insights automáticos
+2025-09-03 21:11:08 | INFO     | app.api.insights:get_automatic_insights:30 | Gerando insights automáticos...
+2025-09-03 21:11:11 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:11:11 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:11:11 | INFO     | app.services.rag.rag_service:generate_automatic_insights:118 | Gerando insights automáticos...
+2025-09-03 21:11:11 | INFO     | app.services.rag.rag_service:generate_automatic_insights:202 | Gerados 1 insights automáticos
+2025-09-03 21:11:11 | INFO     | app.api.insights:get_automatic_insights:50 | Retornando 1 insights automáticos
+2025-09-03 21:13:18 | INFO     | app.api.insights:get_automatic_insights:30 | Gerando insights automáticos...
+2025-09-03 21:13:21 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:13:21 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:13:23 | INFO     | app.services.rag.rag_service:generate_automatic_insights:118 | Gerando insights automáticos...
+2025-09-03 21:13:23 | INFO     | app.services.rag.rag_service:generate_automatic_insights:202 | Gerados 1 insights automáticos
+2025-09-03 21:13:23 | INFO     | app.api.insights:get_automatic_insights:50 | Retornando 1 insights automáticos
+2025-09-03 21:13:23 | INFO     | app.api.insights:get_automatic_insights:30 | Gerando insights automáticos...
+2025-09-03 21:13:25 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:13:25 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:13:26 | INFO     | app.services.rag.rag_service:generate_automatic_insights:118 | Gerando insights automáticos...
+2025-09-03 21:13:26 | INFO     | app.services.rag.rag_service:generate_automatic_insights:202 | Gerados 1 insights automáticos
+2025-09-03 21:13:26 | INFO     | app.api.insights:get_automatic_insights:50 | Retornando 1 insights automáticos
+2025-09-03 21:15:43 | INFO     | app.api.insights:get_automatic_insights:30 | Gerando insights automáticos...
+2025-09-03 21:15:45 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:15:45 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:15:45 | INFO     | app.services.rag.rag_service:generate_automatic_insights:118 | Gerando insights automáticos...
+2025-09-03 21:15:45 | INFO     | app.services.rag.rag_service:generate_automatic_insights:202 | Gerados 1 insights automáticos
+2025-09-03 21:15:45 | INFO     | app.api.insights:get_automatic_insights:50 | Retornando 1 insights automáticos
+2025-09-03 21:15:45 | INFO     | app.api.insights:get_automatic_insights:30 | Gerando insights automáticos...
+2025-09-03 21:15:47 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:15:47 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:15:48 | INFO     | app.services.rag.rag_service:generate_automatic_insights:118 | Gerando insights automáticos...
+2025-09-03 21:15:48 | INFO     | app.services.rag.rag_service:generate_automatic_insights:202 | Gerados 1 insights automáticos
+2025-09-03 21:15:48 | INFO     | app.api.insights:get_automatic_insights:50 | Retornando 1 insights automáticos
+2025-09-03 21:17:18 | INFO     | app.api.insights:get_automatic_insights:30 | Gerando insights automáticos...
+2025-09-03 21:17:21 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:17:21 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:17:21 | INFO     | app.services.rag.rag_service:generate_automatic_insights:118 | Gerando insights automáticos...
+2025-09-03 21:17:21 | INFO     | app.services.rag.rag_service:generate_automatic_insights:202 | Gerados 1 insights automáticos
+2025-09-03 21:17:21 | INFO     | app.api.insights:get_automatic_insights:50 | Retornando 1 insights automáticos
+2025-09-03 21:17:21 | INFO     | app.api.insights:get_automatic_insights:30 | Gerando insights automáticos...
+2025-09-03 21:17:23 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:17:23 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:17:24 | INFO     | app.services.rag.rag_service:generate_automatic_insights:118 | Gerando insights automáticos...
+2025-09-03 21:17:24 | INFO     | app.services.rag.rag_service:generate_automatic_insights:202 | Gerados 1 insights automáticos
+2025-09-03 21:17:24 | INFO     | app.api.insights:get_automatic_insights:50 | Retornando 1 insights automáticos
+2025-09-03 21:23:20 | INFO     | app.api.insights:get_automatic_insights:30 | Gerando insights automáticos...
+2025-09-03 21:23:22 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:23:22 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:23:22 | INFO     | app.services.rag.rag_service:generate_automatic_insights:118 | Gerando insights automáticos...
+2025-09-03 21:23:22 | INFO     | app.services.rag.rag_service:generate_automatic_insights:202 | Gerados 1 insights automáticos
+2025-09-03 21:23:22 | INFO     | app.api.insights:get_automatic_insights:50 | Retornando 1 insights automáticos
+2025-09-03 21:23:22 | INFO     | app.api.insights:get_automatic_insights:30 | Gerando insights automáticos...
+2025-09-03 21:23:24 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:23:24 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:23:25 | INFO     | app.services.rag.rag_service:generate_automatic_insights:118 | Gerando insights automáticos...
+2025-09-03 21:23:25 | INFO     | app.services.rag.rag_service:generate_automatic_insights:202 | Gerados 1 insights automáticos
+2025-09-03 21:23:25 | INFO     | app.api.insights:get_automatic_insights:50 | Retornando 1 insights automáticos
+2025-09-03 21:24:35 | INFO     | app.main:lifespan:47 | 🔄 Finalizando AI Agent...
+2025-09-03 21:24:40 | INFO     | app.core.logging:setup_logging:48 | Sistema de logging configurado
+2025-09-03 21:24:40 | INFO     | app.core.logging:setup_logging:48 | Sistema de logging configurado
+2025-09-03 21:24:40 | INFO     | __main__:main:23 | ============================================================
+2025-09-03 21:24:40 | INFO     | __main__:main:24 | 🤖 INFRAWATCH AI AGENT
+2025-09-03 21:24:40 | INFO     | __main__:main:25 | ============================================================
+2025-09-03 21:24:40 | INFO     | __main__:main:26 | 🔧 Host: 0.0.0.0
+2025-09-03 21:24:40 | INFO     | __main__:main:27 | 🌐 Port: 8001
+2025-09-03 21:24:40 | INFO     | __main__:main:28 | 🐛 Debug: True
+2025-09-03 21:24:40 | INFO     | __main__:main:29 | 🧠 Gemini Model: gemini-2.0-flash
+2025-09-03 21:24:40 | INFO     | __main__:main:30 | 📊 Vector DB: ./chroma_db
+2025-09-03 21:24:40 | INFO     | __main__:main:31 | 🔗 InfraWatch API: http://localhost:8000
+2025-09-03 21:24:40 | INFO     | __main__:main:32 | ============================================================
+2025-09-03 21:24:40 | INFO     | __main__:main:44 | 🚀 Iniciando servidor...
+2025-09-03 21:24:41 | INFO     | app.core.logging:setup_logging:48 | Sistema de logging configurado
+2025-09-03 21:24:41 | INFO     | app.main:lifespan:29 | 🚀 Iniciando InfraWatch AI Agent...
+2025-09-03 21:24:41 | INFO     | app.main:lifespan:34 | 🔐 Inicializando autenticação com InfraWatch Backend...
+2025-09-03 21:24:41 | INFO     | app.services.auth_service:initialize:26 | Iniciando autenticação com InfraWatch Backend...
+2025-09-03 21:24:42 | INFO     | app.services.infrawatch_client:login:56 | Login realizado com sucesso no InfraWatch
+2025-09-03 21:24:42 | INFO     | app.services.auth_service:initialize:30 | Autenticação realizada com sucesso!
+2025-09-03 21:24:42 | INFO     | app.main:lifespan:38 | ✅ Autenticação inicializada com sucesso
+2025-09-03 21:24:42 | INFO     | app.main:lifespan:42 | ✅ AI Agent inicializado com sucesso
+2025-09-03 21:27:40 | INFO     | app.api.insights:get_automatic_insights:30 | Gerando insights automáticos...
+2025-09-03 21:27:42 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:27:42 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:27:43 | INFO     | app.services.rag.rag_service:generate_automatic_insights:118 | Gerando insights automáticos...
+2025-09-03 21:27:43 | INFO     | app.services.rag.rag_service:generate_automatic_insights:202 | Gerados 1 insights automáticos
+2025-09-03 21:27:43 | INFO     | app.api.insights:get_automatic_insights:50 | Retornando 1 insights automáticos
+2025-09-03 21:27:43 | INFO     | app.api.insights:get_automatic_insights:30 | Gerando insights automáticos...
+2025-09-03 21:27:44 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:27:44 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:27:45 | INFO     | app.services.rag.rag_service:generate_automatic_insights:118 | Gerando insights automáticos...
+2025-09-03 21:27:45 | INFO     | app.services.rag.rag_service:generate_automatic_insights:202 | Gerados 1 insights automáticos
+2025-09-03 21:27:45 | INFO     | app.api.insights:get_automatic_insights:50 | Retornando 1 insights automáticos
+2025-09-03 21:29:35 | INFO     | app.api.chat:chat_with_ai:38 | Recebida mensagem de chat: Ola...
+2025-09-03 21:29:35 | INFO     | app.services.rag.rag_service:process_query:33 | Processando query: Ola...
+2025-09-03 21:29:37 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:29:37 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:29:37 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=10&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=10&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:29:37 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=10&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=10&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:29:38 | INFO     | app.services.gemini.gemini_service:generate_response:148 | Gerando resposta para query: Ola...
+2025-09-03 21:29:43 | INFO     | app.services.gemini.gemini_service:generate_response:175 | Resposta gerada com sucesso
+2025-09-03 21:29:43 | INFO     | app.services.rag.rag_service:process_query:73 | Query processada com sucesso
+2025-09-03 21:29:43 | INFO     | app.api.chat:chat_with_ai:67 | Resposta do chat gerada com sucesso
+2025-09-03 21:30:46 | INFO     | app.api.chat:chat_with_ai:38 | Recebida mensagem de chat: Ola escreva suas funcionalides o que podes fazer para min...
+2025-09-03 21:30:46 | INFO     | app.services.rag.rag_service:process_query:33 | Processando query: Ola escreva suas funcionalides o que podes fazer para min...
+2025-09-03 21:30:48 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=10&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=10&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:30:48 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=10&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=10&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:30:48 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:30:48 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:30:49 | INFO     | app.services.gemini.gemini_service:generate_response:148 | Gerando resposta para query: Ola escreva suas funcionalides o que podes fazer para min...
+2025-09-03 21:31:01 | INFO     | app.services.gemini.gemini_service:generate_response:175 | Resposta gerada com sucesso
+2025-09-03 21:31:01 | INFO     | app.services.rag.rag_service:process_query:73 | Query processada com sucesso
+2025-09-03 21:31:01 | INFO     | app.api.chat:chat_with_ai:67 | Resposta do chat gerada com sucesso
+2025-09-03 21:36:35 | INFO     | app.api.insights:get_automatic_insights:30 | Gerando insights automáticos...
+2025-09-03 21:36:39 | INFO     | app.api.insights:get_automatic_insights:30 | Gerando insights automáticos...
+2025-09-03 21:36:41 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:36:41 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:36:41 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:36:41 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:36:42 | INFO     | app.services.rag.rag_service:generate_automatic_insights:118 | Gerando insights automáticos...
+2025-09-03 21:36:42 | INFO     | app.services.rag.rag_service:generate_automatic_insights:202 | Gerados 1 insights automáticos
+2025-09-03 21:36:42 | INFO     | app.api.insights:get_automatic_insights:50 | Retornando 1 insights automáticos
+2025-09-03 21:36:42 | INFO     | app.services.rag.rag_service:generate_automatic_insights:118 | Gerando insights automáticos...
+2025-09-03 21:36:42 | INFO     | app.services.rag.rag_service:generate_automatic_insights:202 | Gerados 1 insights automáticos
+2025-09-03 21:36:42 | INFO     | app.api.insights:get_automatic_insights:50 | Retornando 1 insights automáticos
+2025-09-03 21:36:42 | INFO     | app.api.insights:get_automatic_insights:30 | Gerando insights automáticos...
+2025-09-03 21:36:44 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:36:44 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:36:45 | INFO     | app.services.rag.rag_service:generate_automatic_insights:118 | Gerando insights automáticos...
+2025-09-03 21:36:45 | INFO     | app.services.rag.rag_service:generate_automatic_insights:202 | Gerados 1 insights automáticos
+2025-09-03 21:36:45 | INFO     | app.api.insights:get_automatic_insights:50 | Retornando 1 insights automáticos
+2025-09-03 21:37:04 | INFO     | app.api.chat:chat_with_ai:38 | Recebida mensagem de chat: Ola...
+2025-09-03 21:37:04 | INFO     | app.services.rag.rag_service:process_query:33 | Processando query: Ola...
+2025-09-03 21:37:06 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=10&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=10&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:37:06 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=10&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=10&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:37:06 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:37:06 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:37:07 | INFO     | app.services.gemini.gemini_service:generate_response:148 | Gerando resposta para query: Ola...
+2025-09-03 21:37:15 | INFO     | app.services.gemini.gemini_service:generate_response:175 | Resposta gerada com sucesso
+2025-09-03 21:37:15 | INFO     | app.services.rag.rag_service:process_query:73 | Query processada com sucesso
+2025-09-03 21:37:15 | INFO     | app.api.chat:chat_with_ai:67 | Resposta do chat gerada com sucesso
+2025-09-03 21:45:06 | INFO     | app.api.chat:chat_with_ai:38 | Recebida mensagem de chat: Ola escreva sobre voce...
+2025-09-03 21:45:06 | INFO     | app.services.rag.rag_service:process_query:33 | Processando query: Ola escreva sobre voce...
+2025-09-03 21:45:08 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=10&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=10&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:45:08 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=10&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=10&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:45:08 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:45:08 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Redirect response '307 Temporary Redirect' for url 'http://localhost:8000/alerts?limit=100&status=ACTIVE'
+Redirect location: 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307
+2025-09-03 21:45:09 | INFO     | app.services.gemini.gemini_service:generate_response:148 | Gerando resposta para query: Ola escreva sobre voce...
+2025-09-03 21:45:15 | INFO     | app.services.gemini.gemini_service:generate_response:175 | Resposta gerada com sucesso
+2025-09-03 21:45:15 | INFO     | app.services.rag.rag_service:process_query:73 | Query processada com sucesso
+2025-09-03 21:45:15 | INFO     | app.api.chat:chat_with_ai:67 | Resposta do chat gerada com sucesso
+2025-09-03 21:49:57 | INFO     | app.main:lifespan:47 | 🔄 Finalizando AI Agent...
+2025-09-03 21:49:59 | INFO     | app.core.logging:setup_logging:48 | Sistema de logging configurado
+2025-09-03 21:49:59 | INFO     | app.main:lifespan:29 | 🚀 Iniciando InfraWatch AI Agent...
+2025-09-03 21:49:59 | INFO     | app.main:lifespan:34 | 🔐 Inicializando autenticação com InfraWatch Backend...
+2025-09-03 21:49:59 | INFO     | app.services.auth_service:initialize:26 | Iniciando autenticação com InfraWatch Backend...
+2025-09-03 21:50:01 | INFO     | app.services.infrawatch_client:login:56 | Login realizado com sucesso no InfraWatch
+2025-09-03 21:50:01 | INFO     | app.services.auth_service:initialize:30 | Autenticação realizada com sucesso!
+2025-09-03 21:50:01 | INFO     | app.main:lifespan:38 | ✅ Autenticação inicializada com sucesso
+2025-09-03 21:50:01 | INFO     | app.main:lifespan:42 | ✅ AI Agent inicializado com sucesso
+2025-09-03 21:50:30 | INFO     | app.api.chat:chat_with_ai:38 | Recebida mensagem de chat: ola...
+2025-09-03 21:50:30 | INFO     | app.services.rag.rag_service:process_query:33 | Processando query: ola...
+2025-09-03 21:50:34 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts/: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?limit=10&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 21:50:34 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?limit=10&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 21:50:34 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts/: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 21:50:34 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?limit=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 21:50:34 | INFO     | app.services.gemini.gemini_service:generate_response:148 | Gerando resposta para query: ola...
+2025-09-03 21:50:40 | INFO     | app.services.gemini.gemini_service:generate_response:175 | Resposta gerada com sucesso
+2025-09-03 21:50:40 | INFO     | app.services.rag.rag_service:process_query:73 | Query processada com sucesso
+2025-09-03 21:50:40 | INFO     | app.api.chat:chat_with_ai:67 | Resposta do chat gerada com sucesso
+2025-09-03 21:51:52 | INFO     | app.main:lifespan:47 | 🔄 Finalizando AI Agent...
+2025-09-03 21:51:53 | INFO     | app.core.logging:setup_logging:48 | Sistema de logging configurado
+2025-09-03 21:51:53 | INFO     | app.main:lifespan:29 | 🚀 Iniciando InfraWatch AI Agent...
+2025-09-03 21:51:53 | INFO     | app.main:lifespan:34 | 🔐 Inicializando autenticação com InfraWatch Backend...
+2025-09-03 21:51:53 | INFO     | app.services.auth_service:initialize:26 | Iniciando autenticação com InfraWatch Backend...
+2025-09-03 21:51:54 | INFO     | app.services.infrawatch_client:login:56 | Login realizado com sucesso no InfraWatch
+2025-09-03 21:51:54 | INFO     | app.services.auth_service:initialize:30 | Autenticação realizada com sucesso!
+2025-09-03 21:51:54 | INFO     | app.main:lifespan:38 | ✅ Autenticação inicializada com sucesso
+2025-09-03 21:51:54 | INFO     | app.main:lifespan:42 | ✅ AI Agent inicializado com sucesso
+2025-09-03 21:54:09 | INFO     | app.main:lifespan:47 | 🔄 Finalizando AI Agent...
+2025-09-03 21:54:11 | INFO     | app.core.logging:setup_logging:48 | Sistema de logging configurado
+2025-09-03 21:54:11 | INFO     | app.main:lifespan:29 | 🚀 Iniciando InfraWatch AI Agent...
+2025-09-03 21:54:11 | INFO     | app.main:lifespan:34 | 🔐 Inicializando autenticação com InfraWatch Backend...
+2025-09-03 21:54:11 | INFO     | app.services.auth_service:initialize:26 | Iniciando autenticação com InfraWatch Backend...
+2025-09-03 21:54:12 | INFO     | app.services.infrawatch_client:login:56 | Login realizado com sucesso no InfraWatch
+2025-09-03 21:54:12 | INFO     | app.services.auth_service:initialize:30 | Autenticação realizada com sucesso!
+2025-09-03 21:54:12 | INFO     | app.main:lifespan:38 | ✅ Autenticação inicializada com sucesso
+2025-09-03 21:54:12 | INFO     | app.main:lifespan:42 | ✅ AI Agent inicializado com sucesso
+2025-09-03 21:55:04 | INFO     | app.main:lifespan:47 | 🔄 Finalizando AI Agent...
+2025-09-03 21:55:07 | INFO     | app.core.logging:setup_logging:48 | Sistema de logging configurado
+2025-09-03 21:55:07 | INFO     | app.core.logging:setup_logging:48 | Sistema de logging configurado
+2025-09-03 21:55:07 | INFO     | __main__:main:23 | ============================================================
+2025-09-03 21:55:07 | INFO     | __main__:main:24 | 🤖 INFRAWATCH AI AGENT
+2025-09-03 21:55:07 | INFO     | __main__:main:25 | ============================================================
+2025-09-03 21:55:07 | INFO     | __main__:main:26 | 🔧 Host: 0.0.0.0
+2025-09-03 21:55:07 | INFO     | __main__:main:27 | 🌐 Port: 8001
+2025-09-03 21:55:07 | INFO     | __main__:main:28 | 🐛 Debug: True
+2025-09-03 21:55:07 | INFO     | __main__:main:29 | 🧠 Gemini Model: gemini-2.0-flash
+2025-09-03 21:55:07 | INFO     | __main__:main:30 | 📊 Vector DB: ./chroma_db
+2025-09-03 21:55:07 | INFO     | __main__:main:31 | 🔗 InfraWatch API: http://localhost:8000
+2025-09-03 21:55:07 | INFO     | __main__:main:32 | ============================================================
+2025-09-03 21:55:07 | INFO     | __main__:main:44 | 🚀 Iniciando servidor...
+2025-09-03 21:55:07 | INFO     | app.core.logging:setup_logging:48 | Sistema de logging configurado
+2025-09-03 21:55:08 | INFO     | app.main:lifespan:29 | 🚀 Iniciando InfraWatch AI Agent...
+2025-09-03 21:55:08 | INFO     | app.main:lifespan:34 | 🔐 Inicializando autenticação com InfraWatch Backend...
+2025-09-03 21:55:08 | INFO     | app.services.auth_service:initialize:26 | Iniciando autenticação com InfraWatch Backend...
+2025-09-03 21:55:09 | INFO     | app.services.infrawatch_client:login:56 | Login realizado com sucesso no InfraWatch
+2025-09-03 21:55:09 | INFO     | app.services.auth_service:initialize:30 | Autenticação realizada com sucesso!
+2025-09-03 21:55:09 | INFO     | app.main:lifespan:38 | ✅ Autenticação inicializada com sucesso
+2025-09-03 21:55:09 | INFO     | app.main:lifespan:42 | ✅ AI Agent inicializado com sucesso
+2025-09-03 21:55:19 | INFO     | app.api.chat:chat_with_ai:38 | Recebida mensagem de chat: Liste os principais riscos e previsões de problemas na infraestrutura nos próximos dias...
+2025-09-03 21:55:19 | INFO     | app.services.rag.rag_service:process_query:33 | Processando query: Liste os principais riscos e previsões de problemas na infraestrutura nos próximos dias...
+2025-09-03 21:55:19 | INFO     | app.api.chat:chat_with_ai:38 | Recebida mensagem de chat: Liste os principais riscos e previsões de problemas na infraestrutura nos próximos dias...
+2025-09-03 21:55:19 | INFO     | app.services.rag.rag_service:process_query:33 | Processando query: Liste os principais riscos e previsões de problemas na infraestrutura nos próximos dias...
+2025-09-03 21:55:23 | INFO     | app.api.insights:get_automatic_insights:30 | Gerando insights automáticos...
+2025-09-03 21:55:25 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts/: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?size=10&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 21:55:25 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?size=10&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 21:55:25 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts/: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?size=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 21:55:25 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?size=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 21:55:25 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts/: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?size=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 21:55:25 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?size=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 21:55:26 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts/: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?size=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 21:55:26 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?size=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 21:55:26 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts/: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?size=10&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 21:55:26 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?size=10&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 21:55:26 | INFO     | app.services.gemini.gemini_service:generate_response:148 | Gerando resposta para query: Liste os principais riscos e previsões de problemas na infraestrutura nos próximos dias...
+2025-09-03 21:55:27 | INFO     | app.services.gemini.gemini_service:generate_response:148 | Gerando resposta para query: Liste os principais riscos e previsões de problemas na infraestrutura nos próximos dias...
+2025-09-03 21:55:27 | INFO     | app.services.rag.rag_service:generate_automatic_insights:118 | Gerando insights automáticos...
+2025-09-03 21:55:27 | INFO     | app.services.rag.rag_service:generate_automatic_insights:202 | Gerados 1 insights automáticos
+2025-09-03 21:55:27 | INFO     | app.api.insights:get_automatic_insights:50 | Retornando 1 insights automáticos
+2025-09-03 21:55:27 | INFO     | app.api.insights:get_automatic_insights:30 | Gerando insights automáticos...
+2025-09-03 21:55:28 | INFO     | app.api.chat:chat_with_ai:38 | Recebida mensagem de chat: ola...
+2025-09-03 21:55:28 | INFO     | app.services.rag.rag_service:process_query:33 | Processando query: ola...
+2025-09-03 21:55:31 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts/: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?size=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 21:55:31 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?size=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 21:55:32 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts/: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?size=10&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 21:55:32 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?size=10&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 21:55:32 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts/: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?size=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 21:55:32 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?size=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 21:55:32 | INFO     | app.services.rag.rag_service:generate_automatic_insights:118 | Gerando insights automáticos...
+2025-09-03 21:55:32 | INFO     | app.services.rag.rag_service:generate_automatic_insights:202 | Gerados 1 insights automáticos
+2025-09-03 21:55:32 | INFO     | app.api.insights:get_automatic_insights:50 | Retornando 1 insights automáticos
+2025-09-03 21:55:32 | INFO     | app.services.gemini.gemini_service:generate_response:148 | Gerando resposta para query: ola...
+2025-09-03 21:55:38 | INFO     | app.services.gemini.gemini_service:generate_response:175 | Resposta gerada com sucesso
+2025-09-03 21:55:38 | INFO     | app.services.rag.rag_service:process_query:73 | Query processada com sucesso
+2025-09-03 21:55:38 | INFO     | app.api.chat:chat_with_ai:67 | Resposta do chat gerada com sucesso
+2025-09-03 21:55:38 | INFO     | app.services.gemini.gemini_service:generate_response:175 | Resposta gerada com sucesso
+2025-09-03 21:55:38 | INFO     | app.services.rag.rag_service:process_query:73 | Query processada com sucesso
+2025-09-03 21:55:38 | INFO     | app.api.chat:chat_with_ai:67 | Resposta do chat gerada com sucesso
+2025-09-03 21:55:39 | INFO     | app.services.gemini.gemini_service:generate_response:175 | Resposta gerada com sucesso
+2025-09-03 21:55:39 | INFO     | app.services.rag.rag_service:process_query:73 | Query processada com sucesso
+2025-09-03 21:55:39 | INFO     | app.api.chat:chat_with_ai:67 | Resposta do chat gerada com sucesso
+2025-09-03 21:56:15 | INFO     | app.main:lifespan:47 | 🔄 Finalizando AI Agent...
+2025-09-03 21:56:16 | INFO     | app.core.logging:setup_logging:48 | Sistema de logging configurado
+2025-09-03 21:56:16 | INFO     | app.main:lifespan:29 | 🚀 Iniciando InfraWatch AI Agent...
+2025-09-03 21:56:16 | INFO     | app.main:lifespan:34 | 🔐 Inicializando autenticação com InfraWatch Backend...
+2025-09-03 21:56:16 | INFO     | app.services.auth_service:initialize:26 | Iniciando autenticação com InfraWatch Backend...
+2025-09-03 21:56:17 | INFO     | app.services.infrawatch_client:login:56 | Login realizado com sucesso no InfraWatch
+2025-09-03 21:56:17 | INFO     | app.services.auth_service:initialize:30 | Autenticação realizada com sucesso!
+2025-09-03 21:56:17 | INFO     | app.main:lifespan:38 | ✅ Autenticação inicializada com sucesso
+2025-09-03 21:56:17 | INFO     | app.main:lifespan:42 | ✅ AI Agent inicializado com sucesso
+2025-09-03 21:59:59 | INFO     | app.api.chat:chat_with_ai:38 | Recebida mensagem de chat: Liste os principais riscos e previsões de problemas na infraestrutura nos próximos dias...
+2025-09-03 21:59:59 | INFO     | app.services.rag.rag_service:process_query:33 | Processando query: Liste os principais riscos e previsões de problemas na infraestrutura nos próximos dias...
+2025-09-03 21:59:59 | INFO     | app.api.insights:get_automatic_insights:30 | Gerando insights automáticos...
+2025-09-03 21:59:59 | INFO     | app.api.chat:chat_with_ai:38 | Recebida mensagem de chat: Liste os principais riscos e previsões de problemas na infraestrutura nos próximos dias...
+2025-09-03 21:59:59 | INFO     | app.services.rag.rag_service:process_query:33 | Processando query: Liste os principais riscos e previsões de problemas na infraestrutura nos próximos dias...
+2025-09-03 22:00:11 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts/: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?size=10&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 22:00:11 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?size=10&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 22:00:12 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts/: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?size=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 22:00:12 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?size=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 22:00:12 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts/: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?size=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 22:00:12 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?size=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 22:00:13 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts/: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?size=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 22:00:13 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?size=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 22:00:13 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts/: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?size=10&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 22:00:13 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?size=10&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 22:00:14 | INFO     | app.services.rag.rag_service:generate_automatic_insights:118 | Gerando insights automáticos...
+2025-09-03 22:00:14 | INFO     | app.services.rag.rag_service:generate_automatic_insights:202 | Gerados 1 insights automáticos
+2025-09-03 22:00:14 | INFO     | app.api.insights:get_automatic_insights:50 | Retornando 1 insights automáticos
+2025-09-03 22:00:14 | INFO     | app.services.gemini.gemini_service:generate_response:148 | Gerando resposta para query: Liste os principais riscos e previsões de problemas na infraestrutura nos próximos dias...
+2025-09-03 22:00:14 | INFO     | app.services.gemini.gemini_service:generate_response:148 | Gerando resposta para query: Liste os principais riscos e previsões de problemas na infraestrutura nos próximos dias...
+2025-09-03 22:00:15 | INFO     | app.api.insights:get_automatic_insights:30 | Gerando insights automáticos...
+2025-09-03 22:00:17 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts/: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?size=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 22:00:17 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?size=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 22:00:18 | INFO     | app.services.rag.rag_service:generate_automatic_insights:118 | Gerando insights automáticos...
+2025-09-03 22:00:18 | INFO     | app.services.rag.rag_service:generate_automatic_insights:202 | Gerados 1 insights automáticos
+2025-09-03 22:00:18 | INFO     | app.api.insights:get_automatic_insights:50 | Retornando 1 insights automáticos
+2025-09-03 22:00:19 | INFO     | app.api.chat:chat_with_ai:38 | Recebida mensagem de chat: Quais são os principais riscos na infraestrutura?...
+2025-09-03 22:00:19 | INFO     | app.services.rag.rag_service:process_query:33 | Processando query: Quais são os principais riscos na infraestrutura?...
+2025-09-03 22:00:22 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts/: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?size=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 22:00:22 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?size=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 22:00:22 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts/: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?size=10&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 22:00:22 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?size=10&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 22:00:23 | INFO     | app.services.gemini.gemini_service:generate_response:148 | Gerando resposta para query: Quais são os principais riscos na infraestrutura?...
+2025-09-03 22:00:25 | INFO     | app.services.gemini.gemini_service:generate_response:175 | Resposta gerada com sucesso
+2025-09-03 22:00:25 | INFO     | app.services.rag.rag_service:process_query:73 | Query processada com sucesso
+2025-09-03 22:00:25 | INFO     | app.api.chat:chat_with_ai:67 | Resposta do chat gerada com sucesso
+2025-09-03 22:00:25 | INFO     | app.services.gemini.gemini_service:generate_response:175 | Resposta gerada com sucesso
+2025-09-03 22:00:25 | INFO     | app.services.rag.rag_service:process_query:73 | Query processada com sucesso
+2025-09-03 22:00:25 | INFO     | app.api.chat:chat_with_ai:67 | Resposta do chat gerada com sucesso
+2025-09-03 22:00:31 | INFO     | app.services.gemini.gemini_service:generate_response:175 | Resposta gerada com sucesso
+2025-09-03 22:00:31 | INFO     | app.services.rag.rag_service:process_query:73 | Query processada com sucesso
+2025-09-03 22:00:31 | INFO     | app.api.chat:chat_with_ai:67 | Resposta do chat gerada com sucesso
+2025-09-03 22:00:54 | INFO     | app.main:lifespan:47 | 🔄 Finalizando AI Agent...
+2025-09-03 22:00:58 | INFO     | app.core.logging:setup_logging:48 | Sistema de logging configurado
+2025-09-03 22:00:58 | INFO     | app.core.logging:setup_logging:48 | Sistema de logging configurado
+2025-09-03 22:00:58 | INFO     | __main__:main:23 | ============================================================
+2025-09-03 22:00:58 | INFO     | __main__:main:24 | 🤖 INFRAWATCH AI AGENT
+2025-09-03 22:00:58 | INFO     | __main__:main:25 | ============================================================
+2025-09-03 22:00:58 | INFO     | __main__:main:26 | 🔧 Host: 0.0.0.0
+2025-09-03 22:00:58 | INFO     | __main__:main:27 | 🌐 Port: 8001
+2025-09-03 22:00:58 | INFO     | __main__:main:28 | 🐛 Debug: True
+2025-09-03 22:00:58 | INFO     | __main__:main:29 | 🧠 Gemini Model: gemini-2.0-flash
+2025-09-03 22:00:58 | INFO     | __main__:main:30 | 📊 Vector DB: ./chroma_db
+2025-09-03 22:00:58 | INFO     | __main__:main:31 | 🔗 InfraWatch API: http://localhost:8000
+2025-09-03 22:00:58 | INFO     | __main__:main:32 | ============================================================
+2025-09-03 22:00:58 | INFO     | __main__:main:44 | 🚀 Iniciando servidor...
+2025-09-03 22:00:59 | INFO     | app.core.logging:setup_logging:48 | Sistema de logging configurado
+2025-09-03 22:00:59 | INFO     | app.main:lifespan:29 | 🚀 Iniciando InfraWatch AI Agent...
+2025-09-03 22:00:59 | INFO     | app.main:lifespan:34 | 🔐 Inicializando autenticação com InfraWatch Backend...
+2025-09-03 22:00:59 | INFO     | app.services.auth_service:initialize:26 | Iniciando autenticação com InfraWatch Backend...
+2025-09-03 22:01:00 | INFO     | app.services.infrawatch_client:login:56 | Login realizado com sucesso no InfraWatch
+2025-09-03 22:01:00 | INFO     | app.services.auth_service:initialize:30 | Autenticação realizada com sucesso!
+2025-09-03 22:01:00 | INFO     | app.main:lifespan:38 | ✅ Autenticação inicializada com sucesso
+2025-09-03 22:01:00 | INFO     | app.main:lifespan:42 | ✅ AI Agent inicializado com sucesso
+2025-09-03 22:01:06 | INFO     | app.api.chat:chat_with_ai:38 | Recebida mensagem de chat: Como otimizar o desempenho dos servidores?...
+2025-09-03 22:01:06 | INFO     | app.services.rag.rag_service:process_query:33 | Processando query: Como otimizar o desempenho dos servidores?...
+2025-09-03 22:01:06 | INFO     | app.services.rag.vector_store:get_relevant_context:130 | Contexto encontrado: 1 documentos, 344 caracteres
+2025-09-03 22:01:09 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts/: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?size=10&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 22:01:09 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?size=10&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 22:01:09 | ERROR    | app.services.infrawatch_client:_make_request:167 | Erro HTTP na requisição para http://localhost:8000/alerts/: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?size=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 22:01:09 | ERROR    | app.services.infrawatch_client:get_alerts:255 | Erro ao buscar alertas: Erro na comunicação com InfraWatch API: Server error '500 Internal Server Error' for url 'http://localhost:8000/alerts/?size=100&status=ACTIVE'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+2025-09-03 22:01:09 | INFO     | app.services.gemini.gemini_service:generate_response:148 | Gerando resposta para query: Como otimizar o desempenho dos servidores?...
+2025-09-03 22:01:19 | INFO     | app.services.gemini.gemini_service:generate_response:175 | Resposta gerada com sucesso
+2025-09-03 22:01:19 | INFO     | app.services.rag.rag_service:process_query:73 | Query processada com sucesso
+2025-09-03 22:01:19 | INFO     | app.api.chat:chat_with_ai:67 | Resposta do chat gerada com sucesso
+2025-09-03 22:09:26 | INFO     | app.main:lifespan:47 | 🔄 Finalizando AI Agent...
+2025-09-03 22:09:27 | INFO     | app.core.logging:setup_logging:48 | Sistema de logging configurado
+2025-09-03 22:09:27 | INFO     | app.main:lifespan:29 | 🚀 Iniciando InfraWatch AI Agent...
+2025-09-03 22:09:27 | INFO     | app.main:lifespan:34 | 🔐 Inicializando autenticação com InfraWatch Backend...
+2025-09-03 22:09:27 | INFO     | app.services.auth_service:initialize:26 | Iniciando autenticação com InfraWatch Backend...
+2025-09-03 22:09:28 | INFO     | app.services.infrawatch_client:login:56 | Login realizado com sucesso no InfraWatch
+2025-09-03 22:09:28 | INFO     | app.services.auth_service:initialize:30 | Autenticação realizada com sucesso!
+2025-09-03 22:09:28 | INFO     | app.main:lifespan:38 | ✅ Autenticação inicializada com sucesso
+2025-09-03 22:09:28 | INFO     | app.main:lifespan:42 | ✅ AI Agent inicializado com sucesso
+2025-09-03 22:09:38 | INFO     | app.main:lifespan:47 | 🔄 Finalizando AI Agent...
+2025-09-03 22:09:39 | INFO     | app.core.logging:setup_logging:48 | Sistema de logging configurado
+2025-09-03 22:09:39 | INFO     | app.main:lifespan:29 | 🚀 Iniciando InfraWatch AI Agent...
+2025-09-03 22:09:39 | INFO     | app.main:lifespan:34 | 🔐 Inicializando autenticação com InfraWatch Backend...
+2025-09-03 22:09:39 | INFO     | app.services.auth_service:initialize:26 | Iniciando autenticação com InfraWatch Backend...
+2025-09-03 22:09:40 | INFO     | app.services.infrawatch_client:login:56 | Login realizado com sucesso no InfraWatch
+2025-09-03 22:09:40 | INFO     | app.services.auth_service:initialize:30 | Autenticação realizada com sucesso!
+2025-09-03 22:09:40 | INFO     | app.main:lifespan:38 | ✅ Autenticação inicializada com sucesso
+2025-09-03 22:09:40 | INFO     | app.main:lifespan:42 | ✅ AI Agent inicializado com sucesso
+2025-09-03 22:10:19 | INFO     | app.main:lifespan:47 | 🔄 Finalizando AI Agent...
