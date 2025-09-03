@@ -157,8 +157,16 @@ class InfraWatchClient:
                         elif method.upper() == "DELETE":
                             response = await client.delete(url, headers=headers, params=params)
                 
-                response.raise_for_status()
-                return response.json()
+                # Verifica se o status_code é 200 antes de tentar processar o JSON
+                if response.status_code == 200:
+                    return response.json()
+                else:
+                    logger.error(f"Erro HTTP na requisição para {url}: {response.status_code} - {response.text}")
+                    raise httpx.HTTPStatusError(
+                        message=f"Server error '{response.status_code} {response.reason_phrase}' for url '{response.url}'",
+                        request=response.request,
+                        response=response
+                    )
                 
         except httpx.TimeoutException:
             logger.error(f"Timeout na requisição para {url}")
@@ -263,7 +271,12 @@ class InfraWatchClient:
     async def get_alert_by_id(self, alert_id: int) -> Optional[Dict[str, Any]]:
         """Busca um alerta específico por ID"""
         try:
-            return await self._make_request("GET", f"/alerts/{alert_id}")
+            # A rota /alerts/{id} retorna um objeto AlertWithLogsSchema
+            data = await self._make_request("GET", f"/alerts/{alert_id}")
+            # Verificamos se o retorno contém o objeto esperado
+            if isinstance(data, dict):
+                return data  # Já retorna o objeto completo com logs
+            return None
         except Exception as e:
             logger.error(f"Erro ao buscar alerta {alert_id}: {e}")
             return None
@@ -271,10 +284,50 @@ class InfraWatchClient:
     async def get_alerts_stats(self) -> Dict[str, Any]:
         """Busca estatísticas de alertas"""
         try:
-            return await self._make_request("GET", "/alerts/stats")
+            # A rota /alerts/stats retorna um objeto AlertStatsSchema
+            data = await self._make_request("GET", "/alerts/stats")
+            
+            # Retorna as estatísticas no formato correto ou um objeto padrão se falhar
+            if isinstance(data, dict):
+                return {
+                    "total_alerts": data.get("total_alerts", 0),
+                    "critical_active": data.get("critical_active", 0),
+                    "high_active": data.get("high_active", 0),
+                    "medium_active": data.get("medium_active", 0),
+                    "low_active": data.get("low_active", 0),
+                    "acknowledged": data.get("acknowledged", 0),
+                    "resolved_today": data.get("resolved_today", 0),
+                    "average_resolution_time": data.get("average_resolution_time", "N/A"),
+                    "by_category": data.get("by_category", {}),
+                    "by_system": data.get("by_system", {})
+                }
+            
+            return {
+                "total_alerts": 0,
+                "critical_active": 0,
+                "high_active": 0,
+                "medium_active": 0,
+                "low_active": 0,
+                "acknowledged": 0,
+                "resolved_today": 0,
+                "average_resolution_time": "N/A",
+                "by_category": {},
+                "by_system": {}
+            }
         except Exception as e:
             logger.error(f"Erro ao buscar estatísticas de alertas: {e}")
-            return {"total": 0, "active": 0, "resolved": 0}
+            return {
+                "total_alerts": 0,
+                "critical_active": 0,
+                "high_active": 0,
+                "medium_active": 0,
+                "low_active": 0,
+                "acknowledged": 0,
+                "resolved_today": 0,
+                "average_resolution_time": "N/A",
+                "by_category": {},
+                "by_system": {}
+            }
     
     async def get_system_health(self) -> Dict[str, Any]:
         """Busca informações de saúde geral do sistema"""
@@ -287,11 +340,21 @@ class InfraWatchClient:
             total_endpoints = len(endpoints)
             online_endpoints = sum(1 for ep in endpoints if ep.get("status") == "online")
             
+            # Soma todos os alertas ativos por severidade
+            total_active_alerts = 0
+            if isinstance(alerts_stats, dict):
+                total_active_alerts = (
+                    alerts_stats.get("critical_active", 0) +
+                    alerts_stats.get("high_active", 0) +
+                    alerts_stats.get("medium_active", 0) +
+                    alerts_stats.get("low_active", 0)
+                )
+            
             return {
-                "status": "healthy" if online_endpoints == total_endpoints else "degraded",
+                "status": "healthy" if online_endpoints == total_endpoints and total_active_alerts == 0 else "degraded",
                 "endpoints_total": total_endpoints,
                 "endpoints_online": online_endpoints,
-                "alerts_active": alerts_stats.get("active", 0),
+                "alerts_active": total_active_alerts,
                 "last_update": datetime.now().isoformat()
             }
         except Exception as e:

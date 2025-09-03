@@ -89,7 +89,7 @@ class RAGService:
         try:
             # Busca dados em paralelo
             overview_task = infrawatch_client.get_infrastructure_overview()
-            alerts_task = infrawatch_client.get_alerts(status="ACTIVE", limit=10)
+            alerts_task = infrawatch_client.get_alerts(status="active", limit=10)
             metrics_task = infrawatch_client.get_recent_metrics(hours=1)
             
             overview, alerts, recent_metrics = await asyncio.gather(
