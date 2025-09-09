@@ -1,6 +1,6 @@
 # Core Web Framework - Necessário para FastAPI e servidor
 fastapi==0.116.1
-uvicorn==0.35.0
+uvicorn[standard]==0.35.0
 pydantic==2.11.7
 pydantic-settings==2.4.0
 
@@ -12,6 +12,25 @@ python-dotenv==1.1.1
 
 # Logging - Necessário para sistema de logs
 loguru==0.7.2
+
+# AI and RAG - Necessário para funcionalidades de IA
+google-generativeai==0.8.3
+chromadb==0.5.11
+sentence-transformers==3.2.1
+
+# Text Processing - Necessário para processamento de texto
+langchain==0.3.7
+langchain-community==0.3.7
+langchain-text-splitters==0.3.0
+
+# Database - Necessário para persistência
+sqlalchemy==2.0.36
+alembic==1.14.0
+
+# Security - Necessário para autenticação
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+python-multipart==0.0.12
 
 # Testing (desenvolvimento)
 pytest==8.3.3

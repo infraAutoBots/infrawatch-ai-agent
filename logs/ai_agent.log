@@ -1,0 +1,22 @@
+2025-09-09 19:59:02 | INFO     | app.core.logging:setup_logging:48 | Sistema de logging configurado
+2025-09-09 19:59:02 | INFO     | app.core.logging:setup_logging:48 | Sistema de logging configurado
+2025-09-09 19:59:02 | INFO     | __main__:main:23 | ============================================================
+2025-09-09 19:59:02 | INFO     | __main__:main:24 | 🤖 INFRAWATCH AI AGENT
+2025-09-09 19:59:02 | INFO     | __main__:main:25 | ============================================================
+2025-09-09 19:59:02 | INFO     | __main__:main:26 | 🔧 Host: 0.0.0.0
+2025-09-09 19:59:02 | INFO     | __main__:main:27 | 🌐 Port: 8001
+2025-09-09 19:59:02 | INFO     | __main__:main:28 | 🐛 Debug: True
+2025-09-09 19:59:02 | INFO     | __main__:main:29 | 🧠 Gemini Model: gemini-2.0-flash
+2025-09-09 19:59:02 | INFO     | __main__:main:30 | 📊 Vector DB: ./chroma_db
+2025-09-09 19:59:02 | INFO     | __main__:main:31 | 🔗 InfraWatch API: https://infrawatch-backend-production-f5e3.up.railway.app/
+2025-09-09 19:59:02 | INFO     | __main__:main:32 | ============================================================
+2025-09-09 19:59:02 | INFO     | __main__:main:44 | 🚀 Iniciando servidor...
+2025-09-09 19:59:04 | INFO     | app.core.logging:setup_logging:48 | Sistema de logging configurado
+2025-09-09 19:59:05 | INFO     | app.main:lifespan:29 | 🚀 Iniciando InfraWatch AI Agent...
+2025-09-09 19:59:05 | INFO     | app.main:lifespan:34 | 🔐 Inicializando autenticação com InfraWatch Backend...
+2025-09-09 19:59:05 | INFO     | app.services.auth_service:initialize:26 | Iniciando autenticação com InfraWatch Backend...
+2025-09-09 19:59:07 | ERROR    | app.services.infrawatch_client:login:59 | Falha no login: 404 - {"detail":"Not Found"}
+2025-09-09 19:59:07 | ERROR    | app.services.auth_service:initialize:33 | Falha na autenticação inicial
+2025-09-09 19:59:07 | WARNING  | app.main:lifespan:40 | ⚠️ Falha na inicialização da autenticação - algumas funcionalidades podem não funcionar
+2025-09-09 19:59:07 | INFO     | app.main:lifespan:42 | ✅ AI Agent inicializado com sucesso
+2025-09-09 19:59:18 | INFO     | app.main:lifespan:47 | 🔄 Finalizando AI Agent...
