@@ -1,37 +1,26 @@
-# Core Web Framework - Necessário para FastAPI e servidor
+annotated-types==0.7.0
+anyio==4.10.0
+certifi==2025.8.3
+click==8.2.1
+colorama==0.4.6
 fastapi==0.116.1
-uvicorn[standard]==0.35.0
+h11==0.16.0
+httpcore==1.0.9
+httpx==0.27.2
+idna==3.10
+iniconfig==2.1.0
+loguru==0.7.2
+packaging==25.0
+pluggy==1.6.0
 pydantic==2.11.7
 pydantic-settings==2.4.0
-
-# HTTP Client - Necessário para comunicação com APIs (Gemini, InfraWatch Backend)
-httpx==0.27.2
-
-# Environment & Configuration - Necessário para configurações
-python-dotenv==1.1.1
-
-# Logging - Necessário para sistema de logs
-loguru==0.7.2
-
-# AI and RAG - Necessário para funcionalidades de IA
-google-generativeai==0.8.3
-chromadb==0.5.11
-sentence-transformers==3.2.1
-
-# Text Processing - Necessário para processamento de texto
-langchain==0.3.7
-langchain-community==0.3.7
-langchain-text-splitters==0.3.0
-
-# Database - Necessário para persistência
-sqlalchemy==2.0.36
-alembic==1.14.0
-
-# Security - Necessário para autenticação
-python-jose[cryptography]==3.3.0
-passlib[bcrypt]==1.7.4
-python-multipart==0.0.12
-
-# Testing (desenvolvimento)
+pydantic_core==2.33.2
 pytest==8.3.3
 pytest-asyncio==0.24.0
+python-dotenv==1.1.1
+sniffio==1.3.1
+starlette==0.47.3
+typing-inspection==0.4.1
+typing_extensions==4.15.0
+uvicorn==0.35.0
+win32_setctime==1.2.0
