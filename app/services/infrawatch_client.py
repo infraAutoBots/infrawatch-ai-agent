@@ -352,7 +352,37 @@ class InfraWatchClient:
             return {"trends": [], "summary": {}}
     
     async def get_infrastructure_overview(self) -> Dict[str, Any]:
-        """Busca visão geral da infraestrutura"""
+        """Busca visão geral da infraestrutura usando a nova rota otimizada"""
+        try:
+            # Usa a nova rota consolidada do backend
+            response = await self._make_request("GET", "/monitor/overview")
+            
+            if response.get("success") and response.get("data"):
+                data = response["data"]
+                
+                # Retorna no formato esperado pelo agente IA
+                return {
+                    "total_endpoints": data.get("total_endpoints", 0),
+                    "online_endpoints": data.get("online_endpoints", 0),
+                    "offline_endpoints": data.get("offline_endpoints", 0),
+                    "uptime_percentage": data.get("uptime_percentage", 0.0),
+                    "active_alerts": data.get("active_alerts", 0),
+                    "alerts_by_severity": data.get("alerts_by_severity", {}),
+                    "health_status": data.get("health_status", "unknown"),
+                    "last_update": data.get("last_update"),
+                    "summary": data.get("summary", {})
+                }
+            else:
+                logger.warning("Resposta inválida da rota /monitor/overview, usando fallback")
+                return await self._get_infrastructure_overview_fallback()
+                
+        except Exception as e:
+            logger.error(f"Erro ao buscar overview otimizado: {e}")
+            logger.info("Tentando método de fallback...")
+            return await self._get_infrastructure_overview_fallback()
+    
+    async def _get_infrastructure_overview_fallback(self) -> Dict[str, Any]:
+        """Método de fallback que combina múltiplas requisições (versão original)"""
         try:
             # Busca dados em paralelo usando as rotas corretas
             endpoints_task = self.get_endpoints()
@@ -388,7 +418,7 @@ class InfraWatchClient:
             }
             
         except Exception as e:
-            logger.error(f"Erro ao buscar visão geral da infraestrutura: {e}")
+            logger.error(f"Erro ao buscar visão geral da infraestrutura (fallback): {e}")
             return {
                 "total_endpoints": 0,
                 "online_endpoints": 0,
