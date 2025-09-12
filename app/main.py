@@ -14,6 +14,7 @@ from app.core.config import settings
 from app.core.logging import setup_logging, get_logger
 from app.api.chat import router as chat_router
 from app.api.insights import router as insights_router
+from app.api.predictive import router as predictive_router
 from app.services.auth_service import auth_service
 
 
@@ -70,6 +71,7 @@ app.add_middleware(
 # Incluir routers
 app.include_router(chat_router)
 app.include_router(insights_router)
+app.include_router(predictive_router)
 
 
 @app.get("/")

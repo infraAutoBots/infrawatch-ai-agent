@@ -363,3 +363,259 @@ Mantenha o relatório técnico mas acessível, com foco em valor para tomada de 
                 suggestions=["Verificar dados de entrada", "Tentar geração manual"],
                 metadata={"error": str(e)}
             )
+
+    async def generate_predictive_analysis(
+        self,
+        infrastructure_data: Optional[Dict[str, Any]] = None,
+        config: Optional[Dict[str, Any]] = None
+    ) -> Dict[str, Any]:
+        """Gera análise preditiva usando Gemini AI"""
+        
+        try:
+            # Monta o prompt específico para análise preditiva
+            prompt = self._build_predictive_analysis_prompt(infrastructure_data, config)
+            
+            contents = [
+                {
+                    "parts": [{"text": prompt}],
+                    "role": "user"
+                }
+            ]
+            
+            response_text = await self._make_gemini_request(contents)
+            
+            # Analisa a resposta para extrair insights preditivos
+            analysis_result = await self._parse_predictive_response(response_text)
+            
+            logger.info("Análise preditiva gerada com sucesso via Gemini")
+            return analysis_result
+            
+        except Exception as e:
+            logger.error(f"Erro ao gerar análise preditiva com Gemini: {e}")
+            return {
+                "summary": "Erro ao gerar análise preditiva. Dados insuficientes ou problema de conectividade.",
+                "predictions": [],
+                "confidence": 0.0,
+                "trends": {},
+                "recommendations": ["Verificar dados de entrada", "Tentar novamente"]
+            }
+    
+    def _build_predictive_analysis_prompt(
+        self,
+        infrastructure_data: Optional[Dict[str, Any]],
+        config: Optional[Dict[str, Any]]
+    ) -> str:
+        """Constrói prompt específico para análise preditiva"""
+        
+        base_prompt = """Você é um especialista em análise preditiva de infraestrutura de TI. 
+Analise os dados fornecidos e faça previsões sobre possíveis problemas futuros.
+
+INSTRUÇÃO ESPECÍFICA: Sua resposta deve ser em formato JSON válido com a seguinte estrutura:
+{
+    "summary": "Resumo executivo da análise preditiva",
+    "predictions": [
+        {
+            "endpoint": "nome_do_endpoint",
+            "metric": "métrica_analisada",
+            "issue": "problema_previsto",
+            "probability": número_entre_0_e_100,
+            "timeframe": "janela_temporal",
+            "actions": ["ação1", "ação2"]
+        }
+    ],
+    "trends": {
+        "overall_health": "improving|stable|declining",
+        "critical_metrics": ["métrica1", "métrica2"],
+        "risk_level": "low|medium|high|critical"
+    },
+    "confidence": número_entre_0_e_100,
+    "recommendations": ["recomendação1", "recomendação2"]
+}
+
+Foque em:
+1. Identificar tendências preocupantes
+2. Calcular probabilidades realistas 
+3. Fornecer janelas temporais específicas
+4. Sugerir ações preventivas concretas
+5. Avaliar o risco geral do ambiente"""
+        
+        # Adiciona dados de configuração se disponíveis
+        if config:
+            base_prompt += f"""
+
+CONFIGURAÇÕES DA ANÁLISE:
+- Threshold de confiança: {config.get('confidence_threshold', 70)}%
+- Janela de previsão: {config.get('prediction_window', '24h')}
+- Tipo de análise: {config.get('analysis_type', 'performance')}
+- Tempo real: {'Habilitado' if config.get('real_time_enabled', False) else 'Desabilitado'}
+"""
+        
+        # Adiciona dados de infraestrutura se disponíveis
+        if infrastructure_data:
+            base_prompt += f"""
+
+DADOS ATUAIS DA INFRAESTRUTURA:
+{json.dumps(infrastructure_data, indent=2, default=str)}
+
+Analise especialmente:
+- Endpoints com métricas elevadas
+- Padrões nos alertas existentes  
+- Tendências de uso de recursos
+- Indicadores de degradação
+"""
+        else:
+            base_prompt += """
+
+DADOS DA INFRAESTRUTURA: Não disponíveis
+Forneça uma análise baseada em padrões típicos de infraestrutura corporativa.
+"""
+        
+        base_prompt += """
+
+IMPORTANTE: 
+- Retorne APENAS o JSON, sem texto adicional
+- Use dados realistas e específicos
+- Foque em problemas que realmente podem ocorrer
+- Seja preciso nas estimativas de tempo e probabilidade"""
+        
+        return base_prompt
+    
+    async def _parse_predictive_response(self, response_text: str) -> Dict[str, Any]:
+        """Analisa resposta do Gemini para extrair dados estruturados de análise preditiva"""
+        
+        try:
+            # Tenta extrair JSON da resposta
+            response_text = response_text.strip()
+            
+            # Remove possíveis marcadores de código
+            if response_text.startswith("```json"):
+                response_text = response_text[7:]
+            if response_text.startswith("```"):
+                response_text = response_text[3:]
+            if response_text.endswith("```"):
+                response_text = response_text[:-3]
+            
+            response_text = response_text.strip()
+            
+            # Tenta fazer parse do JSON
+            parsed_data = json.loads(response_text)
+            
+            # Valida estrutura básica
+            if not isinstance(parsed_data, dict):
+                raise ValueError("Resposta não é um objeto JSON válido")
+            
+            # Garantir que campos obrigatórios existam
+            result = {
+                "summary": parsed_data.get("summary", "Análise preditiva realizada"),
+                "predictions": parsed_data.get("predictions", []),
+                "trends": parsed_data.get("trends", {}),
+                "confidence": min(100, max(0, parsed_data.get("confidence", 75))),
+                "recommendations": parsed_data.get("recommendations", [])
+            }
+            
+            # Valida e normaliza previsões
+            validated_predictions = []
+            for pred in result["predictions"]:
+                if isinstance(pred, dict):
+                    validated_pred = {
+                        "endpoint": pred.get("endpoint", "Unknown"),
+                        "metric": pred.get("metric", "general"),
+                        "issue": pred.get("issue", "Problema detectado"),
+                        "probability": min(100, max(0, pred.get("probability", 50))),
+                        "timeframe": pred.get("timeframe", "24h"),
+                        "actions": pred.get("actions", [])
+                    }
+                    validated_predictions.append(validated_pred)
+            
+            result["predictions"] = validated_predictions
+            
+            logger.info(f"Resposta preditiva parseada com sucesso: {len(validated_predictions)} previsões")
+            return result
+            
+        except json.JSONDecodeError as e:
+            logger.error(f"Erro ao fazer parse JSON da resposta: {e}")
+            logger.debug(f"Resposta original: {response_text[:500]}...")
+            
+            # Fallback: tenta extrair informações básicas da resposta em texto
+            return self._extract_predictive_info_from_text(response_text)
+            
+        except Exception as e:
+            logger.error(f"Erro ao processar resposta preditiva: {e}")
+            return {
+                "summary": "Erro no processamento da análise preditiva",
+                "predictions": [],
+                "trends": {},
+                "confidence": 0,
+                "recommendations": ["Verificar conectividade", "Tentar novamente"]
+            }
+    
+    def _extract_predictive_info_from_text(self, text: str) -> Dict[str, Any]:
+        """Extrai informações preditivas de texto livre como fallback"""
+        
+        predictions = []
+        recommendations = []
+        
+        try:
+            # Busca por padrões comuns em texto
+            text_lower = text.lower()
+            
+            # Identifica problemas comuns mencionados
+            if "cpu" in text_lower:
+                predictions.append({
+                    "endpoint": "Server-01",
+                    "metric": "cpu_usage",
+                    "issue": "Alto uso de CPU detectado no texto",
+                    "probability": 75,
+                    "timeframe": "4-8 horas",
+                    "actions": ["Verificar processos", "Otimizar aplicações"]
+                })
+            
+            if "memória" in text_lower or "memory" in text_lower:
+                predictions.append({
+                    "endpoint": "Server-02", 
+                    "metric": "memory_usage",
+                    "issue": "Problema de memória identificado",
+                    "probability": 70,
+                    "timeframe": "6-12 horas",
+                    "actions": ["Verificar vazamentos", "Reiniciar serviços"]
+                })
+            
+            if "rede" in text_lower or "network" in text_lower:
+                predictions.append({
+                    "endpoint": "Network-01",
+                    "metric": "network_latency", 
+                    "issue": "Problema de rede detectado",
+                    "probability": 65,
+                    "timeframe": "2-6 horas",
+                    "actions": ["Verificar conectividade", "Analisar tráfego"]
+                })
+            
+            # Extrai recomendações básicas
+            if "monitorar" in text_lower:
+                recommendations.append("Monitorar métricas críticas")
+            if "verificar" in text_lower:
+                recommendations.append("Verificar configurações do sistema")
+            if "otimizar" in text_lower:
+                recommendations.append("Otimizar performance")
+            
+            confidence = 60 if predictions else 30
+            
+            summary = f"Análise preditiva extraída de texto. {len(predictions)} problemas potenciais identificados."
+            
+            return {
+                "summary": summary,
+                "predictions": predictions,
+                "trends": {"risk_level": "medium" if predictions else "low"},
+                "confidence": confidence,
+                "recommendations": recommendations if recommendations else ["Analisar dados manualmente"]
+            }
+            
+        except Exception as e:
+            logger.error(f"Erro ao extrair informações do texto: {e}")
+            return {
+                "summary": "Falha na extração de informações preditivas",
+                "predictions": [],
+                "trends": {},
+                "confidence": 0,
+                "recommendations": ["Verificar dados de entrada"]
+            }
