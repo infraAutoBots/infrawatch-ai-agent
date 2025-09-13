@@ -382,39 +382,67 @@ class InfraWatchClient:
             return await self._get_infrastructure_overview_fallback()
     
     async def _get_infrastructure_overview_fallback(self) -> Dict[str, Any]:
-        """Método de fallback que combina múltiplas requisições (versão original)"""
+        """Método de fallback que combina múltiplas requisições e inclui dados dos monitors"""
         try:
             # Busca dados em paralelo usando as rotas corretas
-            endpoints_task = self.get_endpoints()
+            status_task = self._make_request("GET", "/monitor/status")
             alerts_task = self.get_alerts(status="active")  # Usando "active" em minúsculas
-            health_task = self.get_system_health()
             
-            endpoints, alerts, health = await asyncio.gather(
-                endpoints_task, alerts_task, health_task,
+            status_data, alerts = await asyncio.gather(
+                status_task, alerts_task,
                 return_exceptions=True
             )
             
-            # Processa resultados
-            total_endpoints = len(endpoints) if isinstance(endpoints, list) else 0
+            # Processa dados de status
+            monitors = []
+            total_endpoints = 0
+            online_endpoints = 0
+            
+            if isinstance(status_data, dict):
+                monitors = status_data.get("monitors", [])
+                total_endpoints = status_data.get("total", 0)
+                online_endpoints = status_data.get("total_online", 0)
+                offline_endpoints = status_data.get("total_offline", 0)
+            
+            # Processa alertas
             active_alerts = len(alerts) if isinstance(alerts, list) else 0
             
             # Calcula estatísticas
-            online_endpoints = 0
-            if isinstance(endpoints, list):
-                for endpoint in endpoints:
-                    if endpoint.get("status") == "online":
-                        online_endpoints += 1
-            
             uptime_percentage = (online_endpoints / total_endpoints * 100) if total_endpoints > 0 else 0
+            
+            # Determina status de saúde
+            health_status = "healthy"
+            if uptime_percentage < 50:
+                health_status = "critical"
+            elif uptime_percentage < 80:
+                health_status = "degraded"
+            elif active_alerts > 5:
+                health_status = "warning"
             
             return {
                 "total_endpoints": total_endpoints,
                 "online_endpoints": online_endpoints,
-                "offline_endpoints": total_endpoints - online_endpoints,
-                "active_alerts": active_alerts,
+                "offline_endpoints": offline_endpoints,
                 "uptime_percentage": round(uptime_percentage, 2),
-                "health_status": health.get("status", "unknown") if isinstance(health, dict) else "unknown",
-                "last_update": datetime.now().isoformat()
+                "active_alerts": active_alerts,
+                "health_status": health_status,
+                "last_update": datetime.now().isoformat(),
+                
+                # Dados adicionais para análise preditiva
+                "monitors": monitors,  # Dados completos dos monitors para análise detalhada
+                "endpoints": [],  # Mantém compatibilidade
+                "alerts": alerts if isinstance(alerts, list) else [],
+                
+                # Estatísticas detalhadas por status
+                "summary": {
+                    "availability_ratio": uptime_percentage / 100,
+                    "critical_endpoints": [m for m in monitors if not m.get("data", {}).get("status", False)],
+                    "high_latency_endpoints": [
+                        m for m in monitors 
+                        if m.get("data", {}).get("ping_rtt") and 
+                        float(m.get("data", {}).get("ping_rtt", 0)) > 1000
+                    ]
+                }
             }
             
         except Exception as e:
@@ -426,7 +454,10 @@ class InfraWatchClient:
                 "active_alerts": 0,
                 "uptime_percentage": 0.0,
                 "health_status": "unknown",
-                "last_update": datetime.now().isoformat()
+                "last_update": datetime.now().isoformat(),
+                "monitors": [],
+                "endpoints": [],
+                "alerts": []
             }
     
     async def add_endpoint(self, endpoint_data: Dict[str, Any]) -> Dict[str, Any]:
